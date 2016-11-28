@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "000",
+    "title": "Fantastic Beasts and Where to Find Them",
+    "image": "http://image.tmdb.org/t/p/w500/9HE9xiNMEFJnCzndlkWD7oPfAOx.jpg",
+    "rating": "8.7",
+    "genres": ["Family", "Advanture", "Fantasy"],
+    "summary": "In 1926, Newt Scamander arrives at the Magical Congress of the United States of America with a magically expanded briefcase, which houses a number of dangerous creatures and their habitats. When the creatures escape from the briefcase, it sends the American wizarding authorities after Newt, and threatens to strain even further the state of magical and non-magical relations."
+  },
+  {
+    "_id": "001",
+    "title": "Doctor Strange",
+    "image": "http://image.tmdb.org/t/p/w500/xfWac8MTYDxujaxgPVcRD9yZaul.jpg",
+    "rating": "7.3",
+    "genres": ["Action", "Advanture", "Fantasy", "Science Fiction"],
+    "summary": "After his career is destroyed, a brilliant but arrogant surgeon gets a new lease on life when a sorcerer takes him under his wing and trains him to defend the world against evil."
+  },
+  {
+    "_id": "002",
+    "title": "The Secret Lift of Pets",
+    "image": "http://image.tmdb.org/t/p/w500/WLQN5aiQG8wc9SeKwixW7pAR8K.jpg",
+    "rating": "9.6",
+    "genres": ["Animation", "Advanture", "Family", "Comedy"],
+    "summary": "The quiet life of a terrier named Max is upended when his owner takes in Duke, a stray whom Max instantly dislikes."
+  }
+]
