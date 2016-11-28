@@ -14,22 +14,22 @@
                     //    getLoggedIn: getLoggedIn
                     //}
                 })
-                .when('/movie_list', {
-                    templateUrl: './views/movielist/home.view.html',
-                    controller: 'MovieController',
-                    controllerAs: 'model'
-                    //resolve: {
-                    //    getLoggedIn: getLoggedIn
-                    //}
-                })
-                .when('/movie_detail/:id', {
-                    templateUrl: './views/moviedetail/moviedetail.view.html',
-                    controller: 'MovieDetailController',
-                    controllerAs: 'model'
-                    //resolve: {
-                    //    getLoggedIn: getLoggedIn
-                    //}
-                })
+                //.when('/movie_list', {
+                //    templateUrl: './views/movielist/home.view.html',
+                //    controller: 'MovieController',
+                //    controllerAs: 'model'
+                //    //resolve: {
+                //    //    getLoggedIn: getLoggedIn
+                //    //}
+                //})
+                //.when('/movie_detail/:id', {
+                //    templateUrl: './views/moviedetail/moviedetail.view.html',
+                //    controller: 'MovieDetailController',
+                //    controllerAs: 'model'
+                //    //resolve: {
+                //    //    getLoggedIn: getLoggedIn
+                //    //}
+                //})
                 //.when('/tv_list', {
                 //    templateUrl: './views/tvlist/tvlist.view.html',
                 //    controller: 'TvController',
@@ -71,30 +71,30 @@
                 //    }
                 //})
                 .when('/register', {
-                    templateUrl: './views/register/register.view.html',
+                    templateUrl: './views/user/register.view.html',
                     controller: 'RegisterController',
                     controllerAs: 'model'
                 })
-                .when('/login', {
-                    templateUrl: './views/login/login.view.html',
-                    controller: 'LoginController',
-                    controllerAs: 'model'
-                })
-                .when('/admin',{
-                    templateUrl: './views/admin/admin.view.html',
-                    controller: 'AdminController',
-                    controllerAs: 'model'
-                })
-                .when('/profile', {
-                    templateUrl: './views/profile/profile.view.html',
-                    controller: 'ProfileController',
-                    controllerAs: 'model'
-                })
-                .when('/logout', {
-                    templateUrl: './views/home/home.view.html',
-                    controller: 'HomeController',
-                    controllerAs: 'model'
-                })
+                //.when('/login', {
+                //    templateUrl: './views/login/login.view.html',
+                //    controller: 'LoginController',
+                //    controllerAs: 'model'
+                //})
+                //.when('/admin',{
+                //    templateUrl: './views/admin/admin.view.html',
+                //    controller: 'AdminController',
+                //    controllerAs: 'model'
+                //})
+                //.when('/profile', {
+                //    templateUrl: './views/profile/profile.view.html',
+                //    controller: 'ProfileController',
+                //    controllerAs: 'model'
+                //})
+                //.when('/logout', {
+                //    templateUrl: './views/home/home.view.html',
+                //    controller: 'HomeController',
+                //    controllerAs: 'model'
+                //})
                 .otherwise({
                     redirectTo: '/home'
                 });
