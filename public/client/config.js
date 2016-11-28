@@ -85,11 +85,11 @@
                 //    controller: 'AdminController',
                 //    controllerAs: 'model'
                 //})
-                //.when('/profile', {
-                //    templateUrl: './views/profile/profile.view.html',
-                //    controller: 'ProfileController',
-                //    controllerAs: 'model'
-                //})
+                .when('/profile', {
+                    templateUrl: './views/user/profile.view.html',
+                    controller: 'ProfileController',
+                    controllerAs: 'model'
+                })
                 //.when('/logout', {
                 //    templateUrl: './views/home/home.view.html',
                 //    controller: 'HomeController',

@@ -1,8 +1,8 @@
 module.exports = function(app, userModel) {
 
     app.post("/api/project/user", createNewUser);
+    app.get("/api/project/user/:id", getUserById);
     //app.get("/api/project/user", getUser);
-    //app.get("/api/project/user/:id", getUserById);
     //app.put("/api/project/user/:id", updateUser);
     //app.delete("/api/project/user/:id", deleteUser);
     //app.post("/api/project/user/:followerId/user/:followedId", userFollowsUser);
@@ -18,6 +18,13 @@ module.exports = function(app, userModel) {
         var users = userModel.createUser(user);
         //req.session.currentUser = user;
         res.json(users);
+    }
+
+    function getUserById(req, res) {
+        var userId = req.params.id;
+        console.log(userId);
+        var user = userModel.findUserById(userId);
+        res.json(user);
     }
 
     //function getUser(req, res) {
@@ -36,12 +43,6 @@ module.exports = function(app, userModel) {
     //    } else {
     //        res.json(null);
     //    }
-    //}
-    //
-    //function getUserById(req, res) {
-    //    var userId = req.params.id;
-    //    var user = userModel.findUserById(userId);
-    //    res.json(user);
     //}
     //
     //function updateUser(req, res) {

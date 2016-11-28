@@ -6,8 +6,9 @@
     function UserService($http, $rootScope) {
         var api = {
             register:register,
-            setCurrentUser: setCurrentUser
-            //findUserById: findUserById,
+            findUserById: findUserById,
+            setCurrentUser: setCurrentUser,
+            getCurrentUser: getCurrentUser
             //findUserByUsername:findUserByUsername,
             //findUserByCredentials: findUserByCredentials,
             //adminFindAllUsers: adminFindAllUsers,
@@ -22,7 +23,6 @@
             //unlike:unlike,
             //login:login,
             //more functions
-            //getCurrentUser: getCurrentUser,
             //logout: logout
         };
 
@@ -32,9 +32,17 @@
             return $http.post('/api/project/user', user);
         }
 
+        function findUserById(userId) {
+            return $http.get("/api/project/user/"+userId);
+        }
+
         function setCurrentUser(user) {
             $rootScope.curUser = user;
             $rootScope.$broadcast("setCurrentUser");
+        }
+
+        function getCurrentUser() {
+            return $rootScope.curUser;
         }
 
         //function getProfile(){
@@ -43,10 +51,6 @@
         //
         //function login(credential){
         //    return $http.post("/api/assignment/login",credential);
-        //}
-        //
-        //function findUserById(userId) {
-        //    return $http.get("/api/project/user/"+userId);
         //}
         //
         //function findUserByUsername(username){
@@ -83,10 +87,6 @@
         //
         //function unlike(type,tviso_id){
         //    return $http.delete("/api/project/user/unlike/"+type+"/"+tviso_id);
-        //}
-        //
-        //function getCurrentUser() {
-        //    return $rootScope.curUser;
         //}
         //
         //function logout() {

@@ -6,10 +6,10 @@ module.exports = function() {
 
     var api = {
 
-        createUser: createUser
+        createUser: createUser,
+        findUserById: findUserById
         //findUserByCredentials: findUserByCredentials,
         //findUserByUsername: findUserByUsername,
-        //findUserById: findUserById,
         //findAllUsers: findAllUsers,
         //deleteUserById: deleteUserById,
         //updateUserById: updateUserById,
@@ -45,7 +45,19 @@ module.exports = function() {
         };
         console.log(newUser);
         mock.push(newUser);
-        return mock;
+        return newUser;
+    }
+
+    function findUserById(userId) {
+        console.log('ENTER FINAL POINT');
+        for(var u in mock) {
+            console.log(mock[u]._id);
+            console.log(userId);
+            if(mock[u]._id == userId) {
+                return mock[u];
+            }
+        }
+        return null;
     }
 
     //function findUserByCredentials(username, password) {
@@ -60,15 +72,6 @@ module.exports = function() {
     //function findUserByUsername(username) {
     //    for(var u in mock) {
     //        if(mock[u].username == username) {
-    //            return mock[u];
-    //        }
-    //    }
-    //    return null;
-    //}
-    //
-    //function findUserById(userId) {
-    //    for(var u in mock) {
-    //        if(mock[u]._id == userId) {
     //            return mock[u];
     //        }
     //    }
