@@ -7,6 +7,7 @@
         var api = {
             register:register,
             findUserById: findUserById,
+            updateUser: updateUser,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser
             //findUserByUsername:findUserByUsername,
@@ -15,7 +16,6 @@
             //adminCreateUser: adminCreateUser,
             //adminUpdateUser:adminUpdateUser,
             //adminDeleteUserById: adminDeleteUserById,
-            //updateUser: updateUser,
             //getProfile:getProfile,
             //islogin:islogin,
             //isAdmin:isAdmin,
@@ -34,6 +34,10 @@
 
         function findUserById(userId) {
             return $http.get("/api/project/user/"+userId);
+        }
+
+        function updateUser(userId, user) {
+            return $http.put("/api/project/user/"+userId,user);
         }
 
         function setCurrentUser(user) {
@@ -71,10 +75,6 @@
         //
         //function adminDeleteUserById(userId){
         //    return $http.delete("/api/project/admin/user/"+userId);
-        //}
-        //
-        //function updateUser(userId, user) {
-        //    return $http.put("/api/project/user/"+userId,user);
         //}
         //
         //function adminUpdateUser(userId, user) {

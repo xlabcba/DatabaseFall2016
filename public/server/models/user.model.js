@@ -7,12 +7,12 @@ module.exports = function() {
     var api = {
 
         createUser: createUser,
-        findUserById: findUserById
+        findUserById: findUserById,
+        updateUserById: updateUserById
         //findUserByCredentials: findUserByCredentials,
         //findUserByUsername: findUserByUsername,
         //findAllUsers: findAllUsers,
         //deleteUserById: deleteUserById,
-        //updateUserById: updateUserById,
         //followUser: followUser,
         //followByUser: followByUser,
         //unfollowUser: unfollowUser,
@@ -60,6 +60,16 @@ module.exports = function() {
         return null;
     }
 
+    function updateUserById(userId, user) {
+        for(var u in mock) {
+            if(mock[u]._id == userId) {
+                mock.splice(u,1,user);
+                return user;
+            }
+        }
+        return null;
+    }
+
     //function findUserByCredentials(username, password) {
     //    for(var u in mock) {
     //        if(mock[u].username == username && mock[u].password == password) {
@@ -86,16 +96,6 @@ module.exports = function() {
     //    for(var w in mock) {
     //        if(mock[w]._id == userId) {
     //            mock.splice(w,1);
-    //            return mock;
-    //        }
-    //    }
-    //    return null;
-    //}
-    //
-    //function updateUserById(userId, user) {
-    //    for(var u in mock) {
-    //        if(mock[u]._id == userId) {
-    //            mock.splice(u,1,user);
     //            return mock;
     //        }
     //    }

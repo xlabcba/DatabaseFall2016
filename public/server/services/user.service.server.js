@@ -2,8 +2,8 @@ module.exports = function(app, userModel) {
 
     app.post("/api/project/user", createNewUser);
     app.get("/api/project/user/:id", getUserById);
+    app.put("/api/project/user/:id", updateUser);
     //app.get("/api/project/user", getUser);
-    //app.put("/api/project/user/:id", updateUser);
     //app.delete("/api/project/user/:id", deleteUser);
     //app.post("/api/project/user/:followerId/user/:followedId", userFollowsUser);
     //app.put("/api/project/user/:followerId/user/:followedId", userUnfollowsUser);
@@ -27,6 +27,13 @@ module.exports = function(app, userModel) {
         res.json(user);
     }
 
+    function updateUser(req, res) {
+        var userId = req.params.id;
+        var newUser = req.body;
+        var users = userModel.updateUserById(userId, newUser);
+        res.json(users);
+    }
+
     //function getUser(req, res) {
     //    if (Object.keys(req.query).length === 0) {
     //        var users = userModel.findAllUsers();
@@ -43,13 +50,6 @@ module.exports = function(app, userModel) {
     //    } else {
     //        res.json(null);
     //    }
-    //}
-    //
-    //function updateUser(req, res) {
-    //    var userId = req.params.id;
-    //    var newUser = req.body;
-    //    var users = userModel.updateUserById(userId, newUser);
-    //    res.json(users);
     //}
     //
     //function deleteUser(req, res) {
