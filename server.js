@@ -5,7 +5,7 @@ var multer        = require('multer');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 /*
