@@ -38,7 +38,7 @@
         init();
 
         function getPopular(){
-            MovieService.findPopularMovie(vm.page)
+            MovieService.findPopularMovie()
                 .then(function(resp) {
                     vm.movielist = resp.data;
                     console.log(resp);
