@@ -1,0 +1,32 @@
+[
+  {"userId":"123",
+    "movieId":"000",
+    "text":"text1",
+    "date": "2012-09-01T09:51:00",
+    "username": "alice"
+  },
+  {"userId":"234",
+    "movieId":"000",
+    "text":"text2",
+    "date": "2014-09-02T12:56:00",
+    "username": "bob"
+  },
+  {"userId":"345",
+    "movieId":"000",
+    "text":"text3",
+    "date": "2014-09-03T12:56:00",
+    "username":"charlie"
+  },
+  {"userId":"456",
+    "movieId":"001",
+    "text":"text4",
+    "date": "2014-09-04T12:56:00",
+    "username":"dan"
+  },
+  {"userId":"567",
+    "movieId":"002",
+    "text":"text5",
+    "date": "2014-09-05T12:56:00",
+    "username":"ed"
+  }
+]

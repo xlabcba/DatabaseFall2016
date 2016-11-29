@@ -22,14 +22,14 @@
                 //    //    getLoggedIn: getLoggedIn
                 //    //}
                 //})
-                //.when('/movie_detail/:id', {
-                //    templateUrl: './views/moviedetail/moviedetail.view.html',
-                //    controller: 'MovieDetailController',
-                //    controllerAs: 'model'
-                //    //resolve: {
-                //    //    getLoggedIn: getLoggedIn
-                //    //}
-                //})
+                .when('/movie_detail/:id', {
+                    templateUrl: './views/movie/moviedetail.view.html',
+                    controller: 'MovieDetailController',
+                    controllerAs: 'model'
+                    //resolve: {
+                    //    getLoggedIn: getLoggedIn
+                    //}
+                })
                 //.when('/tv_list', {
                 //    templateUrl: './views/tvlist/tvlist.view.html',
                 //    controller: 'TvController',
@@ -75,11 +75,11 @@
                     controller: 'RegisterController',
                     controllerAs: 'model'
                 })
-                //.when('/login', {
-                //    templateUrl: './views/login/login.view.html',
-                //    controller: 'LoginController',
-                //    controllerAs: 'model'
-                //})
+                .when('/login', {
+                    templateUrl: './views/user/login.view.html',
+                    controller: 'LoginController',
+                    controllerAs: 'model'
+                })
                 //.when('/admin',{
                 //    templateUrl: './views/admin/admin.view.html',
                 //    controller: 'AdminController',

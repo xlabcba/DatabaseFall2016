@@ -2,9 +2,13 @@ module.exports = function(app) {
 
     var movieModel    = require("./models/movie.model.js")();
     var userModel     = require("./models/user.model.js")();
+    var commentModel  = require("./models/comment.model.js")();
+    var favoriteModel = require("./models/favorite.model.js")();
 
     var movieService  = require("./services/movie.service.server.js")(app, movieModel);
-    var userService  = require("./services/user.service.server.js")(app, userModel);
+    var userService   = require("./services/user.service.server.js")(app, userModel);
+    var commentService= require("./services/comment.service.server.js")(app, commentModel);
+    var favoriteService = require("./services/favorite.service.server.js")(app, favoriteModel);
 
 
     //var userModelProj    = require("./models/user.model");

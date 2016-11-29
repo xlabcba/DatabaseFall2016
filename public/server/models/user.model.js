@@ -8,10 +8,10 @@ module.exports = function() {
 
         createUser: createUser,
         findUserById: findUserById,
-        updateUserById: updateUserById
-        //findUserByCredentials: findUserByCredentials,
-        //findUserByUsername: findUserByUsername,
-        //findAllUsers: findAllUsers,
+        updateUserById: updateUserById,
+        findUserByCredentials: findUserByCredentials,
+        findUserByUsername: findUserByUsername,
+        findAllUsers: findAllUsers
         //deleteUserById: deleteUserById,
         //followUser: followUser,
         //followByUser: followByUser,
@@ -51,8 +51,6 @@ module.exports = function() {
     function findUserById(userId) {
         console.log('ENTER FINAL POINT');
         for(var u in mock) {
-            console.log(mock[u]._id);
-            console.log(userId);
             if(mock[u]._id == userId) {
                 return mock[u];
             }
@@ -63,6 +61,9 @@ module.exports = function() {
     function updateUserById(userId, user) {
         for(var u in mock) {
             if(mock[u]._id == userId) {
+                console.log(user);
+                user._id = userId
+                console.log(user);
                 mock.splice(u,1,user);
                 return user;
             }
@@ -70,28 +71,29 @@ module.exports = function() {
         return null;
     }
 
-    //function findUserByCredentials(username, password) {
-    //    for(var u in mock) {
-    //        if(mock[u].username == username && mock[u].password == password) {
-    //            return mock[u];
-    //        }
-    //    }
-    //    return null;
-    //}
-    //
-    //function findUserByUsername(username) {
-    //    for(var u in mock) {
-    //        if(mock[u].username == username) {
-    //            return mock[u];
-    //        }
-    //    }
-    //    return null;
-    //}
-    //
-    //function findAllUsers() {
-    //    return mock;
-    //}
-    //
+    function findUserByCredentials(username, password) {
+        for(var u in mock) {
+            if(mock[u].username == username && mock[u].password == password) {
+                console.log(mock[u]);
+                return mock[u];
+            }
+        }
+        return null;
+    }
+
+    function findUserByUsername(username) {
+        for(var u in mock) {
+            if(mock[u].username == username) {
+                return mock[u];
+            }
+        }
+        return null;
+    }
+
+    function findAllUsers() {
+        return mock;
+    }
+
     //function deleteUserById(userId) {
     //    for(var w in mock) {
     //        if(mock[w]._id == userId) {

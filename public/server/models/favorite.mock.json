@@ -1,0 +1,17 @@
+[
+  {"userId":"123",
+    "movieId":"000"
+  },
+  {"userId":"234",
+    "movieId":"000"
+  },
+  {"userId":"345",
+    "movieId":"000"
+  },
+  {"userId":"456",
+    "movieId":"001"
+  },
+  {"userId":"567",
+    "movieId":"002"
+  }
+]

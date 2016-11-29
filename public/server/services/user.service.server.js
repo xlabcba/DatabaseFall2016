@@ -1,9 +1,10 @@
 module.exports = function(app, userModel) {
 
     app.post("/api/project/user", createNewUser);
+    app.get("/api/project/user", getUser);
     app.get("/api/project/user/:id", getUserById);
     app.put("/api/project/user/:id", updateUser);
-    //app.get("/api/project/user", getUser);
+    app.post("/api/project/logout", logout);
     //app.delete("/api/project/user/:id", deleteUser);
     //app.post("/api/project/user/:followerId/user/:followedId", userFollowsUser);
     //app.put("/api/project/user/:followerId/user/:followedId", userUnfollowsUser);
@@ -34,24 +35,30 @@ module.exports = function(app, userModel) {
         res.json(users);
     }
 
-    //function getUser(req, res) {
-    //    if (Object.keys(req.query).length === 0) {
-    //        var users = userModel.findAllUsers();
-    //        res.json(users);
-    //    } else if (Object.keys(req.query).length === 1) {
-    //        var username = req.query.username;
-    //        var user = userModel.findUserByUsername(username);
-    //        res.json(user);
-    //    } else if (Object.keys(req.query).length === 2) {
-    //        var username = req.query.username;
-    //        var password = req.query.password;
-    //        var user = userModel.findUserByCredentials(username, password);
-    //        res.json(user);
-    //    } else {
-    //        res.json(null);
-    //    }
-    //}
-    //
+    function getUser(req, res) {
+        if (Object.keys(req.query).length === 0) {
+            var users = userModel.findAllUsers();
+            res.json(users);
+        } else if (Object.keys(req.query).length === 1) {
+            var username = req.query.username;
+            var user = userModel.findUserByUsername(username);
+            res.json(user);
+        } else if (Object.keys(req.query).length === 2) {
+            console.log('enter credentials!!!');
+            var username = req.query.username;
+            var password = req.query.password;
+            var user = userModel.findUserByCredentials(username, password);
+            res.json(user);
+        } else {
+            res.json(null);
+        }
+    }
+
+    function logout(req, res) {
+        //req.session.destroy();
+        res.send(200);
+    }
+
     //function deleteUser(req, res) {
     //    var userId = req.params.id;
     //    recipeModel.deleteRecipeOfUser(userId);

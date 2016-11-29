@@ -6,9 +6,10 @@ module.exports = function() {
 
     var api = {
 
+        findAllMovies: findAllMovies,
+        findMovieById: findMovieById
         //createRecipeForUser: createRecipeForUser,
         //findAllRecipesForUser: findAllRecipesForUser,
-        //findRecipeById: findRecipeById,
         //deleteRecipeById: deleteRecipeById,
         //updateRecipeById: updateRecipeById,
         //deleteRecipeOfUser: deleteRecipeOfUser,
@@ -18,13 +19,22 @@ module.exports = function() {
         //findAllLikedRecipesForUser: findAllLikedRecipesForUser,
         //findAllRecipesForStr: findAllRecipesForStr,
         //deleteUserFromLikeBy: deleteUserFromLikeBy,
-        findAllMovies: findAllMovies
 
     };
     return api;
 
     function findAllMovies() {
         return mock;
+    }
+
+    function findMovieById(movieId) {
+        for(var m in mock) {
+
+            if(mock[m]._id == movieId) {
+                return mock[m];
+            }
+        }
+        return null;
     }
 
     //function createRecipeForUser(userId, recipe) {
@@ -56,15 +66,6 @@ module.exports = function() {
     //        }
     //    }
     //    return ret_recipes;
-    //}
-    //
-    //function findRecipeById(recipeId) {
-    //    for(var r in mock) {
-    //        if(mock[r]._id == recipeId) {
-    //            return mock[r];
-    //        }
-    //    }
-    //    return null;
     //}
     //
     //function deleteRecipeById(recipeId) {

@@ -3,7 +3,7 @@
         .module('MovieFanApp')
         .controller('HeaderController', HeaderController);
 
-    function HeaderController($location) {
+    function HeaderController($location, UserService) {
         console.log("HeaderController");
 
         var vm = this;
@@ -28,13 +28,13 @@
         init();
 
         function logout() {
-            //UserService.logout();
-            //$location.url("/home");
+            UserService.logout();
+            $location.url("/home");
         }
 
         function islogin(){
-            //return UserService.islogin();
-            return false
+            return UserService.islogin();
+            //return false
         }
 
         function isAdmin(){

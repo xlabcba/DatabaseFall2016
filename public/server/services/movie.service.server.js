@@ -1,9 +1,9 @@
 module.exports = function(app, movieModel) {
 
     app.get("/api/project/movie", getAllMovies);
+    app.get("/api/project/movie/:movieId", getMovieById);
     //app.get("/api/project/recipe/localSearch/:searchStr", getAllRecipesForStr);
     //app.get("/api/project/user/:userId/recipe", getAllRecipesForUser);
-    //app.get("/api/project/recipe/:recipeId", getRecipeById);
     //app.delete("/api/project/recipe/:recipeId", deleteRecipe);
     //app.post("/api/project/user/:userId/recipe", createNewRecipeForUser);
     //app.put("/api/project/recipe/:recipeId", updateRecipe);
@@ -17,6 +17,12 @@ module.exports = function(app, movieModel) {
         res.json(movies);
     }
 
+    function  getMovieById(req, res) {
+        var movieId = req.params.movieId;
+        var movie = movieModel.findMovieById(movieId);
+        res.json(movie);
+    }
+
     //function getAllRecipesForStr(req, res) {
     //    var searchStr = req.params.searchStr;
     //    var recipes = recipeModel.findAllRecipesForStr(searchStr);
@@ -27,12 +33,6 @@ module.exports = function(app, movieModel) {
     //    var userId = req.params.userId;
     //    var recipes = recipeModel.findAllRecipesForUser(userId);
     //    res.json(recipes);
-    //}
-    //
-    //function  getRecipeById(req, res) {
-    //    var recipeId = req.params.recipeId;
-    //    var recipe = recipeModel.findRecipeById(recipeId);
-    //    res.json(recipe);
     //}
     //
     //function deleteRecipe(req, res) {

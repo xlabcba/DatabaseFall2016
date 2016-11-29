@@ -8,16 +8,33 @@
         //var apiKey = 'a2ba7e66f0a9510643003d8fb4fae3f0';
 
         var api = {
+
+            getMovieById : getMovieById,
+            findPopularMovie:findPopularMovie
             //getAllMovies : getAllMovies,
-            //getMovieById : getMovieById,
             //getMovieVideoById : getMovieVideoById,
             //searchMoviesByTitle: searchMoviesByTitle,
             //findTopRateMovie:findTopRateMovie,
             //findMovieNowPlaying:findMovieNowPlaying,
             //findMovieUpcoming:findMovieUpcoming,
-            findPopularMovie:findPopularMovie
+
         };
         return api;
+
+        function getMovieById(movieId){
+            //var deferred = $q.defer();
+            //var service = '/movie/';
+            //var url = base + service + id + '?api_key=' + apiKey;
+            //$http({method: 'GET', url: url}).
+            //success(function (response) {
+            //    deferred.resolve(response);
+            //}).
+            //error(function (response) {
+            //    deferred.resolve(response);
+            //});
+            //return deferred.promise;
+            return $http.get("/api/project/movie/"+movieId)
+        }
 
         function findPopularMovie(){
             //var deferred = $q.defer();
@@ -94,19 +111,6 @@
         //    var deferred = $q.defer();
         //    var service = '/movie/popular';
         //    var url = base + service + '?api_key=' + apiKey;
-        //    $http({method: 'GET', url: url}).
-        //    success(function (response) {
-        //        deferred.resolve(response);
-        //    }).
-        //    error(function (response) {
-        //        deferred.resolve(response);
-        //    });
-        //    return deferred.promise;
-        //}
-        //function getMovieById(id){
-        //    var deferred = $q.defer();
-        //    var service = '/movie/';
-        //    var url = base + service + id + '?api_key=' + apiKey;
         //    $http({method: 'GET', url: url}).
         //    success(function (response) {
         //        deferred.resolve(response);

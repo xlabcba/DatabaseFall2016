@@ -8,8 +8,11 @@
             register:register,
             findUserById: findUserById,
             updateUser: updateUser,
+            login:login,
             setCurrentUser: setCurrentUser,
-            getCurrentUser: getCurrentUser
+            getCurrentUser: getCurrentUser,
+            islogin:islogin,
+            logout: logout
             //findUserByUsername:findUserByUsername,
             //findUserByCredentials: findUserByCredentials,
             //adminFindAllUsers: adminFindAllUsers,
@@ -17,13 +20,10 @@
             //adminUpdateUser:adminUpdateUser,
             //adminDeleteUserById: adminDeleteUserById,
             //getProfile:getProfile,
-            //islogin:islogin,
             //isAdmin:isAdmin,
             //like: like,
             //unlike:unlike,
-            //login:login,
             //more functions
-            //logout: logout
         };
 
         return api;
@@ -37,7 +37,12 @@
         }
 
         function updateUser(userId, user) {
-            return $http.put("/api/project/user/"+userId,user);
+            return $http.put("/api/project/user/"+userId, user);
+        }
+
+        function login(credential){
+            return $http.get("/api/project/user?username="+credential.username+"&password="+credential.password);
+            //return $http.post("/api/project/user", credential);
         }
 
         function setCurrentUser(user) {
@@ -49,12 +54,18 @@
             return $rootScope.curUser;
         }
 
+        function islogin() {
+            return !($rootScope.curUser == undefined || $rootScope.curUser == null);
+        }
+
+        function logout() {
+            var curuser = jQuery.extend(true, {}, $rootScope.curUser);
+            $rootScope.curUser = null;
+            return $http.post("/api/project/logout", curuser);
+        }
+
         //function getProfile(){
         //    return $http.get("/api/project/loggedin");
-        //}
-        //
-        //function login(credential){
-        //    return $http.post("/api/assignment/login",credential);
         //}
         //
         //function findUserByUsername(username){
@@ -87,20 +98,6 @@
         //
         //function unlike(type,tviso_id){
         //    return $http.delete("/api/project/user/unlike/"+type+"/"+tviso_id);
-        //}
-        //
-        //function logout() {
-        //    var curuser = jQuery.extend(true, {}, $rootScope.curUser);
-        //    $rootScope.curUser = null;
-        //    return $http.post("/api/assignment/logout",curuser);
-        //}
-        //
-        //function islogin(){
-        //    if($rootScope.curUser==undefined||$rootScope.curUser==null){
-        //        return false;
-        //    }else{
-        //        return true;
-        //    }
         //}
         //
         //function isAdmin(){
