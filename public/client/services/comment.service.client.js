@@ -6,8 +6,8 @@
 
         var api = {
 
-            getCommentSet:getCommentSet
-            //createComment:createComment,
+            getCommentSet:getCommentSet,
+            createComment:createComment
             //createSubComment:createSubComment,
             //deleteComment:deleteComment,
             //deleteSubComment:deleteSubComment
@@ -20,10 +20,10 @@
             return $http.get("/api/project/movie/"+movieId+"/comment");
         }
 
-        //function createComment(type,tviso_id,comment){
-        //    return $http.post("/api/project/comment/"+type+"/"+tviso_id,comment);
-        //}
-        //
+        function createComment(comment){
+            return $http.post("/api/project/comment/", comment);
+        }
+
         //function createSubComment(type,tviso_id,comment_id,subcomment){
         //    return $http.post("/api/project/comment/"+type+"/"+tviso_id+"/comment/"+comment_id,subcomment);
         //}

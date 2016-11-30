@@ -130,24 +130,23 @@
         }
 
         function addComment(){
-            var user = UserService.getCurrentUser();
+            //var user = UserService.getCurrentUser();
             var comment =
             {
+                "userId": vm.curUser._id,
+                "movieId": vm.movieId,
                 "text":vm.commenttext,
-                "user_id" :user._id,
-                "username":user.username,
                 "date":(new Date).toString(),
-                "subcomments":[]
+                "username":user.username
             };
-            CommentService.createComment('movie',vm.movie.id,comment).then(function(resp){
-                if (resp === undefined) {
-                    alert("Create Comment Fail");
-                } else if (resp.length === 0) {
-                    alert("Create Comment Fail");
-                } else {
-                    vm.commenttext ='';
-                    vm.commentSet = resp.data;
-                }
+            CommentService.createComment(comment)
+                .then(function(resp){
+                    if (resp === undefined || resp.length === 0) {
+                        alert("Create Comment Fail");
+                    } else {
+                        vm.commenttext ='';
+                        vm.commentSet = resp.data;
+                    }
             });
         }
 

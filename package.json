@@ -35,6 +35,7 @@
     "htmlencode": "0.0.4",
     "mongoose": "^4.2.3",
     "multer": "^1.0.6",
+    "mysql": "^2.12.0",
     "ng-dialog": "^0.5.5",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
