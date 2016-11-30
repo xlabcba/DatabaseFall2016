@@ -23,7 +23,6 @@ module.exports = function(app, userModel) {
 
     function getUserById(req, res) {
         var userId = req.params.id;
-        console.log(userId);
         var user = userModel.findUserById(userId);
         res.json(user);
     }
@@ -44,7 +43,6 @@ module.exports = function(app, userModel) {
             var user = userModel.findUserByUsername(username);
             res.json(user);
         } else if (Object.keys(req.query).length === 2) {
-            console.log('enter credentials!!!');
             var username = req.query.username;
             var password = req.query.password;
             var user = userModel.findUserByCredentials(username, password);

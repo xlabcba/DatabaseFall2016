@@ -6,23 +6,41 @@ module.exports = function() {
 
     var api = {
 
-        isFavorite: isFavorite
+        isFavorite: isFavorite,
+        like: like,
+        unlike: unlike
 
     };
     return api;
 
     function isFavorite(userId, movieId) {
-        console.log(userId);
-        console.log(movieId);
         for(var f in mock) {
-            console.log(mock[f].userId);
-            console.log(mock[f].movieId);
-
             if(mock[f].userId == userId && mock[f].movieId == movieId) {
                 return true;
             }
         }
         return false;
+    }
+
+    function like(userId, movieId) {
+        var newLike = {"userId": userId, "movieId": movieId};
+        for(var l in mock) {
+            if(mock[l].userId == userId && mock[l].movieId == movieId) {
+                return null;
+            }
+        }
+        mock.push(newLike);
+        return true;
+    }
+
+    function unlike(userId, movieId) {
+        for(var l in mock) {
+            if(mock[l].userId == userId && mock[l].movieId == movieId) {
+                mock.splice(l,1);
+                return false;
+            }
+        }
+        return null;
     }
 
 };

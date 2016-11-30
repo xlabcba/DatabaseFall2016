@@ -43,13 +43,11 @@ module.exports = function() {
             //intro: user.intro,
             //roles:["user"]
         };
-        console.log(newUser);
         mock.push(newUser);
         return newUser;
     }
 
     function findUserById(userId) {
-        console.log('ENTER FINAL POINT');
         for(var u in mock) {
             if(mock[u]._id == userId) {
                 return mock[u];
@@ -61,9 +59,7 @@ module.exports = function() {
     function updateUserById(userId, user) {
         for(var u in mock) {
             if(mock[u]._id == userId) {
-                console.log(user);
                 user._id = userId
-                console.log(user);
                 mock.splice(u,1,user);
                 return user;
             }
@@ -74,7 +70,6 @@ module.exports = function() {
     function findUserByCredentials(username, password) {
         for(var u in mock) {
             if(mock[u].username == username && mock[u].password == password) {
-                console.log(mock[u]);
                 return mock[u];
             }
         }

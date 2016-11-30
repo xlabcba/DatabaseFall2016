@@ -14,7 +14,6 @@ module.exports = function() {
     function findCommentsByMovieId(movieId) {
         var ret_comments = [];
         for(var c in mock) {
-            console.log(mock[c]);
             if(mock[c].movieId == movieId) {
                 ret_comments.push(mock[c]);
             }

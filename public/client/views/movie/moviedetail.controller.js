@@ -106,6 +106,29 @@
             });
         }
 
+        function like(){
+            FavoriteService.like(vm.curUser._id, vm.movieId)
+                .then(function(resp){
+                    if (resp === undefined || resp.length === 0) {
+                        alert("Like Movie Fail");
+                    } else {
+                        vm.likeitem = resp.data;
+                    }
+                });
+
+        }
+
+        function unlike(){
+            FavoriteService.unlike(vm.curUser._id, vm.movieId)
+                .then(function(resp){
+                    if (resp === undefined || resp.length === 0) {
+                        alert("UnLike Movie Fail");
+                    } else {
+                        vm.likeitem = resp.data;
+                    }
+                });
+        }
+
         function addComment(){
             var user = UserService.getCurrentUser();
             var comment =
@@ -202,59 +225,6 @@
             }else{
                 return imageurl;
             }
-        }
-
-        function like(){
-            UserService.getProfile().then(function(resp){
-                if (resp === undefined) {
-                    alert("Get Current User Fail");
-                } else if (resp.length === 0) {
-                    alert("Get Current User Fail");
-                } else {
-                    var user = resp.data;
-                    UserService.like('movie',vm.movie.id).then(function(resp){
-                        if (resp === undefined) {
-                            alert("Like Movie Fail");
-                        } else if (resp.length === 0) {
-                            alert("Like Movie Fail");
-                        } else {
-                            vm.likeitem=false;
-                            for(var i in resp.data){
-                                if(resp.data[i].tviso_id==vm.movie.id&&resp.data[i].type=="movie"){
-                                    vm.likeitem = true;
-                                }
-                            }
-                        }
-                    });
-                }
-            });
-
-        }
-
-        function unlike(){
-            UserService.getProfile().then(function(resp){
-                if (resp === undefined) {
-                    alert("Get Current User Fail");
-                } else if (resp.length === 0) {
-                    alert("Get Current User Fail");
-                } else {
-                    var user = resp.data;
-                    UserService.unlike('movie',vm.movie.id).then(function(resp){
-                        if (resp === undefined) {
-                            alert("UnLike Movie Fail");
-                        } else if (resp.length === 0) {
-                            alert("UnLike Movie Fail");
-                        } else {
-                            vm.likeitem=false;
-                            for(var i in resp.data){
-                                if(resp.data[i].tviso_id==vm.movie.id&&resp.data[i].type=="movie"){
-                                    vm.likeitem = true;
-                                }
-                            }
-                        }
-                    });
-                }
-            });
         }
 
         function arrayToString(arr){
