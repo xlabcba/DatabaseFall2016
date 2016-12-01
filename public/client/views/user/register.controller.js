@@ -9,7 +9,7 @@
 
         function init(){
             vm.register = register;
-            vm.user = { "username":"", "password":"","veripassword":"","email":""};
+            vm.user = {"username":"", "password":"","veripassword":"","email":""};
         }
         init();
 
@@ -38,15 +38,31 @@
             registerUser.username = vm.user.username;
             registerUser.password = vm.user.password;
             registerUser.email = vm.user.email;
-            //TODO: handle first and last name
+
             UserService.register(registerUser)
                 .then(function (response) {
-                    var currentUser = response.data;
-                    console.log(currentUser);
-                    if (currentUser != null) {
-                        UserService.setCurrentUser(currentUser);
-                        $location.url("/profile");
+                    if (response != null && response != undefined) {
+                        var userId = response.data;
+                        console.log(userId);
+                        UserService
+                            .findUserById(userId)
+                            .then(function(response) {
+                                var curUser = response.data;
+                                if(curUser) {
+                                    UserService.setCurrentUser(curUser);
+                                    $location.url("/profile");
+                                } else {
+                                    $location.url("/home");
+                                }
+                            });
                     }
+
+                    //var currentUser = response.data;
+                    //console.log(currentUser);
+                    //if (currentUser != null) {
+                    //    UserService.setCurrentUser(currentUser);
+                    //    $location.url("/profile");
+                    //}
                 });
         }
     }

@@ -13,14 +13,32 @@ module.exports = function(app, movieModel) {
 
 
     function getAllMovies(req, res) {
-        var movies = movieModel.findAllMovies();
-        res.json(movies);
+        movieModel.findAllMovies()
+            .then(
+                function ( movies ) {
+                    res.json(movies);
+                },
+                function ( err ) {
+                    res.status(400).send(err);
+                });
+
     }
 
     function  getMovieById(req, res) {
+        //var movieId = req.params.movieId;
+        //var movie = movieModel.findMovieById(movieId);
+        //res.json(movie);
+
         var movieId = req.params.movieId;
-        var movie = movieModel.findMovieById(movieId);
-        res.json(movie);
+
+        movieModel.findMovieById(movieId)
+            .then(
+                function ( movie ) {
+                    res.json(movie);
+                },
+                function ( err ) {
+                    res.status(400).send(err);
+                });
     }
 
     //function getAllRecipesForStr(req, res) {

@@ -21,6 +21,7 @@
             vm.commenttext = '';
             vm.subcommenttext ='';
             vm.currentvideo = 0;
+            vm.getUsersOfComments = getUsersOfComments;
             vm.getMovieById = getMovieById;
             vm.veriPosterImg = veriPosterImg;
             vm.getCommentSet = getCommentSet;
@@ -36,10 +37,11 @@
             vm.unlike= unlike;
             vm.roundRate = roundRate;
             vm.loadLike = loadLike;
-            vm.arrayToString = arrayToString;
+            //vm.arrayToString = arrayToString;
 
             vm.getMovieById(vm.movieId);
-
+            vm.loadLike();
+            vm.getCommentSet();
         }
 
         init();
@@ -51,22 +53,6 @@
                         alert("Item you are trying to search could not be found");
                     } else {
                         vm.movie = resp.data;
-                        //if(!(vm.movie.poster_path===undefined||vm.movie.poster_path===''))
-                        //    vm.movie.posterurl = vm.image_base_url + vm.poster_size + vm.movie.poster_path;
-                        //MovieService.getMovieVideoById(vm.movie.id)
-                        //    .then(function(resp) {
-                        //        if (resp === undefined) {
-                        //            alert("Item you are trying to search could not be found");
-                        //        } else {
-                        //            vm.movie.video = resp.results;
-                        //            for(var i=0;i<vm.movie.video.length;i++){
-                        //                vm.movie.video[i].youtubeurl = youtubeVideoLinkBase + vm.movie.video[i].key;
-                        //            }
-                        //        }
-                        //});
-                        vm.getCommentSet();
-                        vm.loadLike();
-
                     }
             });
         }
@@ -77,54 +63,72 @@
                     if (resp === undefined) {
                         alert("Item you are trying to search could not be found");
                     } else {
-                        vm.commentSet = resp.data;
+                        getUsersOfComments(resp.data);
                     }
             });
+        }
+
+        function getUsersOfComments(comments) {
+            //console.log(comments);
+            for (var c in comments) {
+                (function() {
+                    var i = c;
+                    UserService
+                        .findUserById(comments[i].commentedBy)
+                        .then(function(response) {
+                            console.log(response.data);
+                            comments[i].username = response.data.username;
+                        });
+                })();
+            }
+            vm.commentSet = comments;
         }
 
         function loadLike(){
+            console.log("HERE IT IS!!!");
             if (!UserService.islogin()) {
+                //console.log("NOT LOGIN!!!");
                 return;
             } else {
                 vm.curUser = UserService.getCurrentUser();
+                //console.log(vm.curUser);
             }
-            FavoriteService.isFavorite(vm.curUser._id, vm.movieId)
+            FavoriteService
+                .isFavorite(vm.curUser.id, vm.movieId)
                 .then(function(resp){
+                    console.log("GOT FAVOR");
+                    console.log(resp);
                     if (resp === undefined || resp.length === 0) {
                         alert("Get Current User Fail");
                     } else {
-                        vm.likeitem = resp.data;
-                        console.log(vm.likeitem);
-                        //var user = resp.data;
-                        //for(var i in user.like){
-                        //    if(user.like[i].tviso_id==vm.movie.id&&user.like[i].type=='movie'){
-                        //        vm.likeitem = true;
-                        //        break;
-                        //    }
-                        //}
+                        vm.likeitem = resp.data[0].total;
                     }
-            });
+                });
         }
 
         function like(){
-            FavoriteService.like(vm.curUser._id, vm.movieId)
+            FavoriteService.like(vm.curUser.id, vm.movieId)
                 .then(function(resp){
                     if (resp === undefined || resp.length === 0) {
                         alert("Like Movie Fail");
                     } else {
-                        vm.likeitem = resp.data;
+                        //vm.likeitem = resp.data;
+                        //console.log(resp.data);
+                        vm.loadLike();
                     }
                 });
 
         }
 
         function unlike(){
-            FavoriteService.unlike(vm.curUser._id, vm.movieId)
+            FavoriteService.unlike(vm.curUser.id, vm.movieId)
                 .then(function(resp){
                     if (resp === undefined || resp.length === 0) {
                         alert("UnLike Movie Fail");
                     } else {
-                        vm.likeitem = resp.data;
+                        //vm.likeitem = resp.data;
+                        //console.log(resp.data);
+                        vm.loadLike();
                     }
                 });
         }
@@ -133,7 +137,7 @@
             //var user = UserService.getCurrentUser();
             var comment =
             {
-                "userId": vm.curUser._id,
+                "userId": vm.curUser.id,
                 "movieId": vm.movieId,
                 "text":vm.commenttext,
                 "date":(new Date).toString(),
@@ -155,7 +159,7 @@
             var subcomment =
             {
                 "text":vm.subcommenttext,
-                "user_id" :user._id,
+                "user_id" :user.id,
                 "username":user.username,
                 "date":(new Date).toString()
             };
@@ -199,7 +203,7 @@
 
         function authPower(user_id){
             var user = UserService.getCurrentUser();
-            return user!=undefined&&user!=null&&(user._id==user_id||user.rules=='admin');
+            return user!=undefined&&user!=null&&(user.id==user_id||user.rules=='admin');
         }
 
         function activeCommentWell(index){
@@ -226,21 +230,21 @@
             }
         }
 
-        function arrayToString(arr){
-            //var str = "";
-            //for(var i in arr){
-            //    str = str+arr[i].name+" | ";
-            //}
-            //return str.substring(0,str.length-2);
-            if (arr == undefined || arr.length == 0) {
-                return "";
-            } else {
-                return arr.join(" | ");
-            }
-        }
+        //function arrayToString(arr){
+        //    //var str = "";
+        //    //for(var i in arr){
+        //    //    str = str+arr[i].name+" | ";
+        //    //}
+        //    //return str.substring(0,str.length-2);
+        //    if (arr == undefined || arr.length == 0) {
+        //        return "";
+        //    } else {
+        //        return arr.join(" | ");
+        //    }
+        //}
 
         function roundRate(rate){
-            return (Math.round(rate*10)).toString()+'%';
+            return (Math.round(parseFloat(rate)*10)).toString()+'%';
         }
 
     }

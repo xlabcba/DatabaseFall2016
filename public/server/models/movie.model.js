@@ -2,7 +2,10 @@
 var mock = require("./movie.mock.json");
 //var Guid = require("../js/guid.js");
 
-module.exports = function() {
+var q = require("q");
+
+
+module.exports = function(db) {
 
     var api = {
 
@@ -24,17 +27,39 @@ module.exports = function() {
     return api;
 
     function findAllMovies() {
-        return mock;
+
+        var deferred = q.defer();
+
+        db.query('SELECT * FROM moviedb.Movie;', function(err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(rows);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findMovieById(movieId) {
-        for(var m in mock) {
+        //for(var m in mock) {
+        //
+        //    if(mock[m]._id == movieId) {
+        //        return mock[m];
+        //    }
+        //}
+        //return null;
+        var deferred = q.defer();
 
-            if(mock[m]._id == movieId) {
-                return mock[m];
+        db.query('SELECT * FROM moviedb.Movie as m WHERE m.id = ?;', [movieId], function(err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(rows[0]);
             }
-        }
-        return null;
+        });
+
+        return deferred.promise;
     }
 
     //function createRecipeForUser(userId, recipe) {

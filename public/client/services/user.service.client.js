@@ -33,6 +33,7 @@
         }
 
         function findUserById(userId) {
+            console.log(userId);
             return $http.get("/api/project/user/"+userId);
         }
 

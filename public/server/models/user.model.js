@@ -1,6 +1,8 @@
 // load mock forms data
 var mock = require("./user.mock.json");
 var Guid = require("../js/guid.js");
+var q = require("q");
+
 
 module.exports = function() {
 
@@ -27,53 +29,107 @@ module.exports = function() {
     return api;
 
     function createUser(user) {
-        var newUser = {
-            _id: Guid.create(),
-            //photo: user.photo,
-            //gender: user.gender,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            username: user.username,
-            password: user.password,
-            email: user.email
-            //birthday: user.birthday,
-            //follow: [],
-            //followBy: [],
-            //like: [],
-            //intro: user.intro,
-            //roles:["user"]
-        };
-        mock.push(newUser);
-        return newUser;
+        //var newUser = {
+        //    _id: Guid.create(),
+        //    //photo: user.photo,
+        //    //gender: user.gender,
+        //    firstName: user.firstName,
+        //    lastName: user.lastName,
+        //    username: user.username,
+        //    password: user.password,
+        //    email: user.email
+        //    //birthday: user.birthday,
+        //    //follow: [],
+        //    //followBy: [],
+        //    //like: [],
+        //    //intro: user.intro,
+        //    //roles:["user"]
+        //};
+        //mock.push(newUser);
+        //return newUser;
+        var deferred = q.defer();
+        //console.log("ENTER DB SUCCESSFULLY!");
+
+        db.query('INSERT INTO moviedb.User SET username = ?, password = ?, email = ?;', [user.username, user.password, user.email], function(err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                db.query('INSERT INTO moviedb.NormalUser SET id = ?;', [result.insertId], function(err, ret) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        console.log("inserted");
+                        console.log(result.insertId);
+                        deferred.resolve(result.insertId);
+                    }
+                });
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findUserById(userId) {
-        for(var u in mock) {
-            if(mock[u]._id == userId) {
-                return mock[u];
+        //for(var u in mock) {
+        //    if(mock[u]._id == userId) {
+        //        return mock[u];
+        //    }
+        //}
+        //return null;
+        var deferred = q.defer();
+
+        db.query('SELECT * FROM moviedb.User as u WHERE u.id = ?;', [userId], function(err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(rows[0]);
             }
-        }
-        return null;
+        });
+
+        return deferred.promise;
     }
 
     function updateUserById(userId, user) {
-        for(var u in mock) {
-            if(mock[u]._id == userId) {
-                user._id = userId
-                mock.splice(u,1,user);
-                return user;
+        //for(var u in mock) {
+        //    if(mock[u]._id == userId) {
+        //        user._id = userId
+        //        mock.splice(u,1,user);
+        //        return user;
+        //    }
+        //}
+        //return null;
+        var deferred = q.defer();
+
+        db.query('UPDATE moviedb.User SET username = ?, password = ?, firstName = ?, lastName = ?, password = ?, email = ? WHERE id = ?;', [user.username, user.password, user.firstName, user.lastName, user.password, user.email, userId], function(err, row) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(row);
             }
-        }
-        return null;
+        });
+
+        return deferred.promise;
     }
 
     function findUserByCredentials(username, password) {
-        for(var u in mock) {
-            if(mock[u].username == username && mock[u].password == password) {
-                return mock[u];
+        //for(var u in mock) {
+        //    if(mock[u].username == username && mock[u].password == password) {
+        //        return mock[u];
+        //    }
+        //}
+        //return null;
+        var deferred = q.defer();
+
+        db.query('SELECT * FROM moviedb.User as u, moviedb.NormalUser as nu WHERE u.username = ? AND u.password = ? AND u.id = nu.id;', [username, password], function(err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                console.log(rows);
+                deferred.resolve(rows[0]);
             }
-        }
-        return null;
+        });
+
+        return deferred.promise;
     }
 
     function findUserByUsername(username) {

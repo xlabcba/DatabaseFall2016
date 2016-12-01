@@ -1,9 +1,11 @@
-module.exports = function(app) {
+module.exports = function(app, db, mysql) {
 
-    var movieModel    = require("./models/movie.model.js")();
-    var userModel     = require("./models/user.model.js")();
-    var commentModel  = require("./models/comment.model.js")();
-    var favoriteModel = require("./models/favorite.model.js")();
+    require("./models/tables.server.js")(db);
+
+    var movieModel    = require("./models/movie.model.js")(db);
+    var userModel     = require("./models/user.model.js")(db);
+    var commentModel  = require("./models/comment.model.js")(db);
+    var favoriteModel = require("./models/favorite.model.js")(db);
 
     var movieService  = require("./services/movie.service.server.js")(app, movieModel);
     var userService   = require("./services/user.service.server.js")(app, userModel);

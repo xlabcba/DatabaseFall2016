@@ -27,20 +27,22 @@
                                 <span class="label-icon">Unlike</span>
                             </button>
                         </li>
-                        <li><strong>Rating:</strong>
-                            <div class="star-rating"><span
-                                    style="width:{{model.roundRate(model.movie.vote_average)}}"></span>
+                        <li><strong>Score:</strong>
+                            <div class="star-rating"><span style="width:{{model.roundRate(model.movie.starRating)}}"></span>
                             </div>
-                            <label>Rated {{model.movie.rating}} out of 10</label>
+                            <label>Rated {{model.movie.starRating}} out of 10</label>
                         </li>
+                        <li><strong>Rating: </strong> {{model.movie.rating}} Class</li>
                         <li><strong>Length: </strong> {{model.movie.runtime}} min</li>
                         <li><strong>Premiere: </strong> {{model.movie.date}}</li>
-                        <li><strong>Genres: </strong>{{model.arrayToString(model.movie.genres)}}</li>
+                        <li><strong>Genres: </strong>{{model.movie.genres}}</li>
                     </ul>
 
                     <ul class="starring">
-                        <li><strong>Company: </strong>{{model.arrayToString(model.movie.companies)}}</li>
-                        <li><strong>Country: </strong>{{model.arrayToString(model.movie.countries)}}</li>
+                        <li><strong>Company: </strong>{{model.movie.companies}}</li>
+                        <li><strong>Country: </strong>{{model.movie.countries}}</li>
+                        <li ng-show="model.movie.link"><a href="{{model.movie.link}}"><strong>Movie Home
+                            Page</strong></a></li>
                     </ul>
                 </div>
             </div> <!-- .row -->
@@ -71,66 +73,6 @@
                             </div>
                             <div class="panel-body">
                                 {{comment.text}}
-                            </div>
-                        </div>
-                        <div class="well" ng-show="model.isCommentWellActive($index)">
-                            <h4>Add Comment:</h4>
-                            <form role="form">
-                                <div class="form-group">
-                                <textarea ng-model="model.subcommenttext" class="form-control coment-textarea"
-                                          rows="3"></textarea>
-                                </div>
-                                <button ng-click="model.addSubComment($index)" type="submit" class="btn btn-info">
-                                    Submit
-                                </button>
-                            </form>
-                        </div>
-                        <div class="row" ng-repeat="subcomment in comment.subcomments">
-                            <div class="col-lg-2">
-                                <div class="subcommentimg thumbnail">
-                                    <img class="img-responsive user-photo"
-                                         src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                                </div>
-                            </div>
-                            <div class="col-lg-10">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <strong>{{subcomment.username}}</strong> <span class="text-muted">{{subcomment.date}}</span>
-                                        <a ng-show="model.authPower(subcomment.user_id)"
-                                           ng-click="model.deleteSubComment(comment._id,subcomment._id)">Delete Comment</a>
-                                    </div>
-                                    <div class="panel-body">
-                                        {{subcomment.text}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div id="trailer" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators" ng-repeat="video in model.movie.video">
-                            <li data-target="#trailer" data-slide-to="{{$index}}" class="active"></li>
-                        </ol>
-                        <div class="carousel-inner" ng-repeat="video in model.movie.video">
-                            <div class="item active">
-                                <div class="thumbnail">
-                                    <div class="video-container">
-                                        <iframe width="870" height="550" ng-src="{{video.youtubeurl}}"
-                                                frameborder="0" allowfullscreen=""></iframe>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

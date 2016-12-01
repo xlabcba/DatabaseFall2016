@@ -10,7 +10,7 @@
         var api = {
 
             getMovieById : getMovieById,
-            findPopularMovie:findPopularMovie
+            findAllMovies: findAllMovies
             //getAllMovies : getAllMovies,
             //getMovieVideoById : getMovieVideoById,
             //searchMoviesByTitle: searchMoviesByTitle,
@@ -33,10 +33,10 @@
             //    deferred.resolve(response);
             //});
             //return deferred.promise;
-            return $http.get("/api/project/movie/"+movieId)
+            return $http.get("/api/project/movie/"+movieId);
         }
 
-        function findPopularMovie(){
+        function findAllMovies(){
             //var deferred = $q.defer();
             //var service = '/movie/popular';
             //var url = base + service + '?api_key=' + apiKey+'&page='+page;

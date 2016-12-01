@@ -17,7 +17,7 @@
             //vm.page = 1;
             //vm.filtervalue = 'popular';
             vm.veriPosterImg = veriPosterImg;
-            vm.getPopular = getPopular;
+            vm.getMovies = getMovies;
             //vm.getTopRate = getTopRate;
             //vm.getNowPlaying = getNowPlaying;
             //vm.getUpcoming = getUpcoming;
@@ -33,12 +33,12 @@
             //];
             //vm.selectedfilter = vm.Filters[0];
             vm.movielist = [];
-            vm.getPopular();
+            vm.getMovies();
         }
         init();
 
-        function getPopular(){
-            MovieService.findPopularMovie()
+        function getMovies(){
+            MovieService.findAllMovies()
                 .then(function(resp) {
                     vm.movielist = resp.data;
                     console.log(resp);

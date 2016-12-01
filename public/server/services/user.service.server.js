@@ -15,40 +15,114 @@ module.exports = function(app, userModel) {
     //files = [];
 
     function createNewUser(req, res) {
+        //var user = req.body;
+        //var users = userModel.createUser(user);
+        ////req.session.currentUser = user;
+        //res.json(users);
         var user = req.body;
-        var users = userModel.createUser(user);
-        //req.session.currentUser = user;
-        res.json(users);
+
+        userModel.createUser(user)
+            .then(
+                function (insertId) {
+                    console.log("CREATED USER");
+                    console.log(insertId);
+                    res.json(insertId)
+                },
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getUserById(req, res) {
+        //var userId = req.params.id;
+        //var user = userModel.findUserById(userId);
+        //res.json(user);
         var userId = req.params.id;
-        var user = userModel.findUserById(userId);
-        res.json(user);
+        if (!userId || userId == undefined) {
+            userId = req.params.userId;
+        }
+        userModel.findUserById(userId)
+            .then(
+                function ( user ) {
+                    res.json(user)
+                },
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function updateUser(req, res) {
+        //var userId = req.params.id;
+        //var newUser = req.body;
+        //var users = userModel.updateUserById(userId, newUser);
+        //res.json(users);
+
         var userId = req.params.id;
         var newUser = req.body;
-        var users = userModel.updateUserById(userId, newUser);
-        res.json(users);
+        userModel.updateUserById(userId, newUser)
+            .then(
+                function (result) {
+                    res.json(200)
+                },
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getUser(req, res) {
+        //if (Object.keys(req.query).length === 0) {
+        //    var users = userModel.findAllUsers();
+        //    res.json(users);
+        //} else if (Object.keys(req.query).length === 1) {
+        //    var username = req.query.username;
+        //    var user = userModel.findUserByUsername(username);
+        //    res.json(user);
+        //} else if (Object.keys(req.query).length === 2) {
+        //    var username = req.query.username;
+        //    var password = req.query.password;
+        //    var user = userModel.findUserByCredentials(username, password);
+        //    res.json(user);
+        //} else {
+        //    res.json(null);
+        //}
         if (Object.keys(req.query).length === 0) {
-            var users = userModel.findAllUsers();
-            res.json(users);
+            userModel.findAllUsers()
+                .then(
+                    function ( users ) {
+                        res.json(users);
+                    },
+                    function ( err ) {
+                        res.status(400).send(err);
+                    }
+                );
         } else if (Object.keys(req.query).length === 1) {
             var username = req.query.username;
-            var user = userModel.findUserByUsername(username);
-            res.json(user);
+            userModel.findUserByUsername(username)
+                .then(
+                    function ( user ) {
+                        res.json(user);
+                    },
+                    function ( err ) {
+                        res.status(400).send(err);
+                    }
+                );
         } else if (Object.keys(req.query).length === 2) {
             var username = req.query.username;
             var password = req.query.password;
-            var user = userModel.findUserByCredentials(username, password);
-            res.json(user);
+            userModel.findUserByCredentials(username, password)
+                .then(
+                    function ( user ) {
+                        res.json(user)
+                    },
+                    function ( err ) {
+                        res.status(400).send(err);
+                    }
+                );
         } else {
-            res.json(null);
+            res.status(400).send(err);
         }
     }
 
