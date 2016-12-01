@@ -56,7 +56,8 @@
                                 <textarea class="form-control coment-textarea" rows="3"
                                           ng-model="model.commenttext"></textarea>
                                 </div>
-                                <button ng-click="model.addComment()" type="submit" class="btn btn-info">Submit</button>
+                                <button ng-click="model.addComment()" ng-show="!model.isCommented" type="submit" class="btn btn-info">Add</button>
+                                <button ng-click="model.updateComment()" ng-show="model.isCommented" type="submit" class="btn btn-info">Update</button>
                             </form>
                         </div>
                     </div>
@@ -65,11 +66,10 @@
                     <div class="col-lg-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <strong>{{comment.username}}</strong> <span
-                                    class="text-muted">Post on {{comment.date}}</span> <a
-                                    class="addComToCom" ng-click="model.activeCommentWell($index)">Add Comment</a> <a
-                                    ng-show="model.authPower(comment.user_id)" ng-click="model.deleteComment(comment._id)">Delete
-                                Comment</a>
+                                <strong>{{comment.username}}</strong>
+                                <span class="text-muted">Posted on {{comment.createDate | date: "yyyy-MM-dd"}}</span>
+                                <span class="text-muted">Updated on {{comment.updateDate | date: "yyyy-MM-dd"}}</span>
+                                <a ng-show="model.authPower(comment.commentedBy)" ng-click="model.deleteComment(comment.commentedBy)">DeleteComment</a>
                             </div>
                             <div class="panel-body">
                                 {{comment.text}}

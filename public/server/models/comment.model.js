@@ -8,7 +8,10 @@ module.exports = function() {
 
     var api = {
 
-        findCommentsByMovieId: findCommentsByMovieId
+        findCommentsByMovieId: findCommentsByMovieId,
+        createComment: createComment,
+        updateComment: updateComment,
+        deleteComment: deleteComment
 
     };
     return api;
@@ -29,6 +32,77 @@ module.exports = function() {
                 deferred.reject(err);
             } else {
                 deferred.resolve(rows);
+            }
+        });
+
+        return deferred.promise;
+    }
+
+    function createComment(comment) {
+        //var ret_comments = [];
+        //for(var c in mock) {
+        //    if(mock[c].movieId == movieId) {
+        //        ret_comments.push(mock[c]);
+        //    }
+        //}
+        //return ret_comments;
+
+        var deferred = q.defer();
+
+        db.query('INSERT INTO moviedb.Comment SET commentedBy = ?, comments = ?, text = ?, createDate = ?, updateDate = ?;', [comment.commentedBy, comment.comments, comment.text, comment.createDate, comment.updateDate], function(err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(result);
+            }
+        });
+
+        return deferred.promise;
+    }
+
+    function updateComment(userId, movieId, comment) {
+        //var ret_comments = [];
+        //for(var c in mock) {
+        //    if(mock[c].movieId == movieId) {
+        //        ret_comments.push(mock[c]);
+        //    }
+        //}
+        //return ret_comments;
+
+        var deferred = q.defer();
+        console.log("IN DB");
+        console.log(userId);
+        console.log(movieId);
+        console.log(comment);
+
+        db.query('UPDATE moviedb.Comment SET text = ?, updateDate = ? WHERE commentedBy = ? and comments = ?;', [comment.text, comment.updateDate, userId, movieId], function(err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                console.log(result);
+                deferred.resolve(result);
+            }
+        });
+
+        return deferred.promise;
+    }
+
+    function deleteComment(userId, movieId) {
+        //var ret_comments = [];
+        //for(var c in mock) {
+        //    if(mock[c].movieId == movieId) {
+        //        ret_comments.push(mock[c]);
+        //    }
+        //}
+        //return ret_comments;
+
+        var deferred = q.defer();
+
+        db.query('DELETE FROM moviedb.Comment WHERE commentedBy = ? AND comments = ?;', [userId, movieId], function(err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(result);
             }
         });
 

@@ -18,17 +18,19 @@
             vm.currentActiveComment = -1;
             vm.image_base_url = 'http://image.tmdb.org/t/p';
             vm.poster_size='/w500';
-            vm.commenttext = '';
-            vm.subcommenttext ='';
-            vm.currentvideo = 0;
+            vm.isCommented = false;
+            vm.currComment = null;
+            vm.commenttext = "";
+            //vm.subcommenttext ='';
+            //vm.currentvideo = 0;
             vm.getUsersOfComments = getUsersOfComments;
             vm.getMovieById = getMovieById;
             vm.veriPosterImg = veriPosterImg;
             vm.getCommentSet = getCommentSet;
             vm.addComment = addComment;
-            vm.addSubComment = addSubComment;
+            vm.updateComment = updateComment;
             vm.deleteComment = deleteComment;
-            vm.deleteSubComment = deleteSubComment;
+            //vm.deleteSubComment = deleteSubComment;
             vm.authPower = authPower;
             vm.activeCommentWell = activeCommentWell;
             vm.isCommentWellActive = isCommentWellActive;
@@ -69,6 +71,11 @@
         }
 
         function getUsersOfComments(comments) {
+            if (UserService.islogin()) {
+                var curUser = UserService.getCurrentUser();
+            } else {
+                var curUser = null;
+            }
             //console.log(comments);
             for (var c in comments) {
                 (function() {
@@ -79,6 +86,11 @@
                             console.log(response.data);
                             comments[i].username = response.data.username;
                         });
+                    if (curUser != null && curUser.id == comments[i].commentedBy){
+                        vm.isCommented = true;
+                        vm.currComment = comments[i];
+                        vm.commenttext = comments[i].text;
+                    }
                 })();
             }
             vm.commentSet = comments;
@@ -134,76 +146,115 @@
         }
 
         function addComment(){
+            if (vm.commenttext == "" || vm.commenttext == undefined || vm.commenttext == null) {
+                alert("Comment cannot be empty");
+                return;
+            }
             //var user = UserService.getCurrentUser();
+            var time = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
             var comment =
             {
-                "userId": vm.curUser.id,
-                "movieId": vm.movieId,
+                "commentedBy": vm.curUser.id,
+                "comments": parseInt(vm.movieId),
                 "text":vm.commenttext,
-                "date":(new Date).toString(),
-                "username":user.username
+                "createDate": time,
+                "updateDate": time
             };
             CommentService.createComment(comment)
                 .then(function(resp){
                     if (resp === undefined || resp.length === 0) {
                         alert("Create Comment Fail");
                     } else {
+                        vm.isCommented = false;
+                        vm.currComment = null;
                         vm.commenttext ='';
-                        vm.commentSet = resp.data;
+                        vm.getCommentSet();
+                        //vm.commentSet = resp.data;
                     }
             });
         }
 
-        function addSubComment(index){
-            var user = UserService.getCurrentUser();
-            var subcomment =
+        //function addSubComment(index){
+        //    var user = UserService.getCurrentUser();
+        //    var subcomment =
+        //    {
+        //        "text":vm.subcommenttext,
+        //        "user_id" :user.id,
+        //        "username":user.username,
+        //        "date":(new Date).toString()
+        //    };
+        //    CommentService.createSubComment('movie',vm.movie.id,vm.commentSet.comments[index]._id, subcomment).then(function(resp){
+        //        if (resp === undefined) {
+        //            alert("Create Sub Comment Fail");
+        //        } else if (resp.length === 0) {
+        //            alert("Create Sub Comment Fail");
+        //        } else {
+        //            vm.subcommenttext = '';
+        //            vm.commentSet.comments[index].subcomments = resp.data;
+        //        }
+        //    });
+        //}
+
+        function deleteComment(userId){
+            CommentService.deleteComment(userId, vm.movieId)
+                .then(function(resp){
+                    if (resp === undefined || resp.length === 0) {
+                        alert("Delete Comment Fail");
+                    } else {
+                        vm.isCommented = false;
+                        vm.currComment = null;
+                        vm.commenttext = '';
+                        vm.getCommentSet();
+                    }
+            });
+        }
+
+        function updateComment(){
+            if (vm.commenttext == "" || vm.commenttext == undefined || vm.commenttext == null) {
+                alert("Comment cannot be empty");
+                vm.commenttext = vm.currComment.text;
+                return;
+            }
+            //var user = UserService.getCurrentUser();
+            var time = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+            var comment =
             {
-                "text":vm.subcommenttext,
-                "user_id" :user.id,
-                "username":user.username,
-                "date":(new Date).toString()
+                "text":vm.commenttext,
+                "updateDate": time
             };
-            CommentService.createSubComment('movie',vm.movie.id,vm.commentSet.comments[index]._id, subcomment).then(function(resp){
-                if (resp === undefined) {
-                    alert("Create Sub Comment Fail");
-                } else if (resp.length === 0) {
-                    alert("Create Sub Comment Fail");
-                } else {
-                    vm.subcommenttext = '';
-                    vm.commentSet.comments[index].subcomments = resp.data;
-                }
-            });
+            CommentService.updateComment(vm.curUser.id, vm.movieId, comment)
+                .then(function(resp){
+                    if (resp === undefined || resp.length === 0) {
+                        alert("Update Comment Fail");
+                    } else {
+                        vm.isCommented = false;
+                        vm.currComment = null;
+                        vm.commenttext = '';
+                        vm.getCommentSet();
+                    }
+                });
         }
 
-        function deleteComment(comment_id){
-            CommentService.deleteComment('movie',vm.commentSet.tviso_id,comment_id).then(function(resp){
-                if (resp === undefined) {
-                    alert("Create Sub Comment Fail");
-                } else if (resp.length === 0) {
-                    alert("Create Sub Comment Fail");
-                } else {
-                    vm.subcommenttext = '';
-                    vm.commentSet.comments = resp.data;
-                }
-            });
-        }
 
-        function deleteSubComment(comment_id, subcomment_id){
-            CommentService.deleteSubComment('movie',vm.movie.id,comment_id,subcomment_id).then(function(resp) {
-                if (resp === undefined) {
-                    alert("Create Sub Comment Fail");
-                } else if (resp.length === 0) {
-                    alert("Create Sub Comment Fail");
-                } else {
-                    vm.subcommenttext = '';
-                    vm.commentSet.comments=resp.data;
-                }
-            });
-        }
+
+        //function deleteSubComment(comment_id, subcomment_id){
+        //    CommentService.deleteSubComment('movie',vm.movie.id,comment_id,subcomment_id).then(function(resp) {
+        //        if (resp === undefined) {
+        //            alert("Create Sub Comment Fail");
+        //        } else if (resp.length === 0) {
+        //            alert("Create Sub Comment Fail");
+        //        } else {
+        //            vm.subcommenttext = '';
+        //            vm.commentSet.comments=resp.data;
+        //        }
+        //    });
+        //}
 
         function authPower(user_id){
             var user = UserService.getCurrentUser();
-            return user!=undefined&&user!=null&&(user.id==user_id||user.rules=='admin');
+            return user != undefined && user!= null && user.id == user_id;
         }
 
         function activeCommentWell(index){

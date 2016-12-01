@@ -32,7 +32,7 @@ module.exports = function(db) {
         }
     });
 
-    db.query('CREATE TABLE IF NOT EXISTS `Comment` (`comments` int(11) NOT NULL, `commentedBy` int(11) NOT NULL, `text` text NOT NULL, `date` date NOT NULL, PRIMARY KEY (`comments`,`commentedBy`), KEY `commentedBy` (`commentedBy`), CONSTRAINT `commentedBy` FOREIGN KEY (`commentedBy`) REFERENCES `NormalUser` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT `comments` FOREIGN KEY (`comments`) REFERENCES `Movie` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);', function(err) {
+    db.query('CREATE TABLE IF NOT EXISTS `Comment` (`comments` int(11) NOT NULL, `commentedBy` int(11) NOT NULL, `text` text NOT NULL, `createDate` date NOT NULL, `updateDate` date NOT NULL, PRIMARY KEY (`comments`,`commentedBy`), KEY `commentedBy` (`commentedBy`), CONSTRAINT `commentedBy` FOREIGN KEY (`commentedBy`) REFERENCES `NormalUser` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT `comments` FOREIGN KEY (`comments`) REFERENCES `Movie` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);', function(err) {
         if (err) {
             throw err;
         } else {

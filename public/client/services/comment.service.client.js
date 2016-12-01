@@ -7,9 +7,9 @@
         var api = {
 
             getCommentSet:getCommentSet,
-            createComment:createComment
-            //createSubComment:createSubComment,
-            //deleteComment:deleteComment,
+            createComment:createComment,
+            updateComment:updateComment,
+            deleteComment:deleteComment
             //deleteSubComment:deleteSubComment
 
         };
@@ -21,17 +21,21 @@
         }
 
         function createComment(comment){
-            return $http.post("/api/project/comment/", comment);
+
+            return $http.post("/api/project/comment", comment);
         }
 
-        //function createSubComment(type,tviso_id,comment_id,subcomment){
-        //    return $http.post("/api/project/comment/"+type+"/"+tviso_id+"/comment/"+comment_id,subcomment);
-        //}
-        //
-        //function deleteComment(type,tviso_id,comment_id){
-        //    return $http.delete("/api/project/comment/"+type+"/"+tviso_id+"/comment/"+comment_id);
-        //}
-        //
+        function updateComment(userId, movieId, comment){
+            return $http.put("/api/project/comment/user/"+userId+"/movie/"+movieId, comment);
+        }
+
+        function deleteComment(userId, movieId){
+            console.log("IN CLIENT");
+            console.log(userId);
+            console.log(movieId);
+            return $http.delete("/api/project/comment/user/"+userId+"/movie/"+movieId);
+        }
+
         //function deleteSubComment(type,tviso_id,comment_id,subcomment_id){
         //    return $http.delete("/api/project/comment/"+type+"/"+tviso_id+"/comment/"+comment_id+"/subcomment/"+subcomment_id);
         //}
