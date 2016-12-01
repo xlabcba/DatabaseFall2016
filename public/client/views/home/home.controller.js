@@ -13,7 +13,6 @@
             vm.$location = $location;
             vm.image_base_url = 'http://image.tmdb.org/t/p';
             vm.poster_size='/w500';
-            vm.keyword = "";
             //vm.page = 1;
             //vm.filtervalue = 'popular';
             vm.veriPosterImg = veriPosterImg;
@@ -40,12 +39,9 @@
         function getMovies(){
             MovieService.findAllMovies()
                 .then(function(resp) {
+                    vm.keyword = "";
+                    vm.showSearchResult = "";
                     vm.movielist = resp.data;
-                    console.log(resp);
-                    for (i = 0; i < resp.data.length; i++) {
-                        if (vm.movielist[i].poster_path != null && vm.movielist[i].poster_path !== '')
-                            vm.movielist[i].posterurl = vm.image_base_url + vm.poster_size + vm.movielist[i].poster_path;
-                    }
                 });
         }
 
@@ -99,15 +95,16 @@
 
 
         function searchMovie(){
-            MovieService.searchMoviesByTitle(vm.keyword,vm.page)
-                .then(function(resp) {
-                    vm.movielist = resp.results;
-                    for (i = 0; i < resp.results.length; i++) {
-                        if (vm.movielist[i].poster_path != null && vm.movielist[i].poster_path !== '')
-                            vm.movielist[i].posterurl = vm.image_base_url + vm.poster_size + vm.movielist[i].poster_path;
-                    }
-
-            });
+            if (vm.keyword == "" || vm.keyword == undefined || vm.keyword == null) {
+                vm.getMovies();
+            } else {
+                MovieService.searchMoviesByTitle(vm.keyword)
+                    .then(function(resp) {
+                        vm.movielist = resp.data;
+                        vm.showSearchResult = vm.keyword;
+                        vm.keyword = "";
+                    });
+            }
         }
 
         function veriPosterImg(imageurl){

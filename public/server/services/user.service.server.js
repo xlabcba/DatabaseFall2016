@@ -2,10 +2,12 @@ module.exports = function(app, userModel) {
 
     app.post("/api/project/user", createNewUser);
     app.get("/api/project/user", getUser);
+    app.get("/api/project/admin", getAdmin);
     app.get("/api/project/user/:id", getUserById);
+    app.get("/api/project/admin/user", getAllUsers);
     app.put("/api/project/user/:id", updateUser);
     app.post("/api/project/logout", logout);
-    //app.delete("/api/project/user/:id", deleteUser);
+    app.delete("/api/project/admin/:userId", deleteUser);
     //app.post("/api/project/user/:followerId/user/:followedId", userFollowsUser);
     //app.put("/api/project/user/:followerId/user/:followedId", userUnfollowsUser);
     //app.post("/api/project/user/searchFollowedUsers", getFollowedUsersForUser);
@@ -46,6 +48,22 @@ module.exports = function(app, userModel) {
             .then(
                 function ( user ) {
                     res.json(user)
+                },
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function getAllUsers(req, res) {
+        //var userId = req.params.id;
+        //var user = userModel.findUserById(userId);
+        //res.json(user);
+
+        userModel.findAllUsers()
+            .then(
+                function ( users ) {
+                    res.json(users)
                 },
                 function ( err ) {
                     res.status(400).send(err);
@@ -126,20 +144,57 @@ module.exports = function(app, userModel) {
         }
     }
 
+    function getAdmin(req, res) {
+        //if (Object.keys(req.query).length === 0) {
+        //    var users = userModel.findAllUsers();
+        //    res.json(users);
+        //} else if (Object.keys(req.query).length === 1) {
+        //    var username = req.query.username;
+        //    var user = userModel.findUserByUsername(username);
+        //    res.json(user);
+        //} else if (Object.keys(req.query).length === 2) {
+        //    var username = req.query.username;
+        //    var password = req.query.password;
+        //    var user = userModel.findUserByCredentials(username, password);
+        //    res.json(user);
+        //} else {
+        //    res.json(null);
+        //}
+        var username = req.query.username;
+        var password = req.query.password;
+        //console.log("IN SERVER");
+        //console.log(username);
+        //console.log(password);
+        userModel.findAdminByCredentials(username, password)
+            .then(
+                function ( user ) {
+                    res.json(user)
+                },
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+
     function logout(req, res) {
         //req.session.destroy();
         res.send(200);
     }
 
-    //function deleteUser(req, res) {
-    //    var userId = req.params.id;
-    //    recipeModel.deleteRecipeOfUser(userId);
-    //    commentModel.deleteCommentOfUser(userId);
-    //    userModel.deleteUserFromFollower(userId);
-    //    recipeModel.deleteUserFromLikeBy(userId);
-    //    var users = userModel.deleteUserById(userId);
-    //    res.json(users);
-    //}
+    function deleteUser(req, res) {
+        var userId = req.params.userId;
+        userModel.deleteUser(userId)
+            .then(
+                function ( result ) {
+                    console.log("DELETED IN SERVER");
+                    res.send(200)
+                },
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
+    }
     //
     //function userFollowsUser(req, res) {
     //    var followerId = req.params.followerId;

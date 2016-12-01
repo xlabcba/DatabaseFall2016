@@ -1,12 +1,7 @@
-/**
- * Created by wendy on 3/4/16.
- */
 (function(){
     angular
         .module('MovieFanApp')
         .controller('MovieDetailController',MovieDetailController);
-
-    //var youtubeVideoLinkBase = "https://www.youtube.com/embed/";
 
     function MovieDetailController($routeParams,MovieService,CommentService,UserService,FavoriteService){
         console.log("MovieDetailController");

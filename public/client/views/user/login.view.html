@@ -9,6 +9,9 @@
             <div class="row">
                 <div class="col-md-5">
                     <h2>Log In</h2>
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="model.loginAsAdmin">Login As Admin</label>
+                    </div>
                     <div class="contact-form">
                         <input ng-model="model.user.username" type="text" class="name form-control" placeholder="Username *" id="login_username"
                                required data-validation-required-message="Please enter your username.">

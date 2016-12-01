@@ -80,11 +80,11 @@
                     controller: 'LoginController',
                     controllerAs: 'model'
                 })
-                //.when('/admin',{
-                //    templateUrl: './views/admin/admin.view.html',
-                //    controller: 'AdminController',
-                //    controllerAs: 'model'
-                //})
+                .when('/admin',{
+                    templateUrl: './views/admin/admin.view.html',
+                    controller: 'AdminController',
+                    controllerAs: 'model'
+                })
                 .when('/profile', {
                     templateUrl: './views/user/profile.view.html',
                     controller: 'ProfileController',

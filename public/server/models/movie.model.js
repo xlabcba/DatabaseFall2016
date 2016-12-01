@@ -10,7 +10,8 @@ module.exports = function(db) {
     var api = {
 
         findAllMovies: findAllMovies,
-        findMovieById: findMovieById
+        findMovieById: findMovieById,
+        searchMovieByTitle: searchMovieByTitle
         //createRecipeForUser: createRecipeForUser,
         //findAllRecipesForUser: findAllRecipesForUser,
         //deleteRecipeById: deleteRecipeById,
@@ -56,6 +57,24 @@ module.exports = function(db) {
                 deferred.reject(err);
             } else {
                 deferred.resolve(rows[0]);
+            }
+        });
+
+        return deferred.promise;
+    }
+
+    function searchMovieByTitle(keyword) {
+        var deferred = q.defer();
+
+        console.log("IN DB");
+        console.log(keyword);
+        db.query("SELECT * FROM moviedb.Movie as m WHERE m.title LIKE ?;", ['%'+keyword+'%'], function(err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                console.log("SUCCESS SEARCH!!!");
+                console.log(rows);
+                deferred.resolve(rows);
             }
         });
 

@@ -4,7 +4,7 @@ var Guid = require("../js/guid.js");
 var q = require("q");
 
 
-module.exports = function() {
+module.exports = function(db) {
 
     var api = {
 
@@ -12,9 +12,10 @@ module.exports = function() {
         findUserById: findUserById,
         updateUserById: updateUserById,
         findUserByCredentials: findUserByCredentials,
+        findAdminByCredentials: findAdminByCredentials,
         findUserByUsername: findUserByUsername,
-        findAllUsers: findAllUsers
-        //deleteUserById: deleteUserById,
+        findAllUsers: findAllUsers,
+        deleteUser: deleteUser,
         //followUser: followUser,
         //followByUser: followByUser,
         //unfollowUser: unfollowUser,
@@ -124,7 +125,26 @@ module.exports = function() {
             if (err) {
                 deferred.reject(err);
             } else {
-                console.log(rows);
+                deferred.resolve(rows[0]);
+            }
+        });
+
+        return deferred.promise;
+    }
+
+    function findAdminByCredentials(username, password) {
+        //for(var u in mock) {
+        //    if(mock[u].username == username && mock[u].password == password) {
+        //        return mock[u];
+        //    }
+        //}
+        //return null;
+        var deferred = q.defer();
+
+        db.query('SELECT * FROM moviedb.User as u, moviedb.Admin as a WHERE u.username = ? AND u.password = ? AND u.id = a.id;', [username, password], function(err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
                 deferred.resolve(rows[0]);
             }
         });
@@ -142,18 +162,41 @@ module.exports = function() {
     }
 
     function findAllUsers() {
-        return mock;
+        var deferred = q.defer();
+
+        db.query('SELECT * FROM moviedb.User as u, moviedb.NormalUser as nu WHERE u.id = nu.id;', function(err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(rows);
+            }
+        });
+
+        return deferred.promise;
     }
 
-    //function deleteUserById(userId) {
-    //    for(var w in mock) {
-    //        if(mock[w]._id == userId) {
-    //            mock.splice(w,1);
-    //            return mock;
-    //        }
-    //    }
-    //    return null;
-    //}
+    function deleteUser(userId) {
+        //for(var w in mock) {
+        //    if(mock[w]._id == userId) {
+        //        mock.splice(w,1);
+        //        return mock;
+        //    }
+        //}
+        //return null;
+        var deferred = q.defer();
+
+        db.query('DELETE nu, u FROM moviedb.NormalUser as nu INNER JOIN moviedb.User as u WHERE nu.id = ? AND nu.id = u .id;', [userId], function(err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                console.log("DELETED NORMAL USER");
+                console.log(result);
+                deferred.resolve(result);
+            }
+        });
+
+        return deferred.promise;
+    }
     //
     //function followUser(followerId, followedId) {
     //    for(var u in mock) {

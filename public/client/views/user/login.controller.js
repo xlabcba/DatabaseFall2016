@@ -23,16 +23,32 @@
                 alert("Please input password");
                 return;
             }
-            UserService.login(vm.user)
-                .then(function (response) {
-                    if (response.data == null) {
-                        alert("login fail");
-                    } else {
-                        vm.user = response.data;
-                        UserService.setCurrentUser(response.data);
-                        $location.path('/profile');
-                    }
-                })
+            if (vm.loginAsAdmin) {
+                console.log("GOING TO LOGIN AS ADMIN");
+                UserService.loginAsAdmin(vm.user)
+                    .then(function (response) {
+                        if (response.data == null) {
+                            alert("login fail");
+                        } else {
+                            vm.user = response.data;
+                            UserService.setCurrentUser(response.data);
+                            UserService.setAdmin();
+                            $location.path('/admin');
+                        }
+                    })
+            } else {
+                console.log("GOING TO LOGIN AS NORMAL USER");
+                UserService.login(vm.user)
+                    .then(function (response) {
+                        if (response.data == null) {
+                            alert("login fail");
+                        } else {
+                            vm.user = response.data;
+                            UserService.setCurrentUser(response.data);
+                            $location.path('/profile');
+                        }
+                    })
+            }
         }
     }
 })();

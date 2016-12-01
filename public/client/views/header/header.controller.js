@@ -38,8 +38,8 @@
         }
 
         function isAdmin(){
-            //return UserService.isAdmin();
-            return false
+            return UserService.isAdmin();
+            //return false
         }
 
         //function isMovieLink(){

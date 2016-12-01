@@ -1,6 +1,6 @@
 <header class="site-header" ng-controller="HeaderController as model">
     <div class="container">
-        <a href="#/home" id="branding">
+        <a id="branding">
             <img src="images/logo.png" alt="" class="logo">
             <div class="logo-copy">
                 <h1 class="site-title">Movie Fans</h1>
@@ -28,11 +28,8 @@
                 <li class="menu-item" ng-class="{'active': model.$location.url() == '/login'}" ng-hide="model.islogin()">
                     <a class="page-scroll" href="#/login">Log In</a>
                 </li>
-                <li class="menu-item" ng-class="{'active': model.$location.url() == '/profile'}" ng-show="model.islogin()">
+                <li class="menu-item" ng-class="{'active': model.$location.url() == '/profile'}" ng-show="model.islogin() && !model.isAdmin()">
                     <a class="page-scroll" href="#/profile">{{curUser.username}}</a>
-                </li>
-                <li class="menu-item" ng-class="{'active': model.$location.url() == '/admin'}" ng-show="model.isAdmin()">
-                    <a class="page-scroll" href="#/admin">Admin</a>
                 </li>
                 <li class="menu-item" ng-class="{'active': model.$location.url() == '/logout'}" ng-show="model.islogin()">
                     <a class="page-scroll" ng-click="model.logout()" href="#/logout">Log Out</a>

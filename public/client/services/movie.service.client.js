@@ -10,10 +10,10 @@
         var api = {
 
             getMovieById : getMovieById,
-            findAllMovies: findAllMovies
+            findAllMovies: findAllMovies,
             //getAllMovies : getAllMovies,
             //getMovieVideoById : getMovieVideoById,
-            //searchMoviesByTitle: searchMoviesByTitle,
+            searchMoviesByTitle: searchMoviesByTitle
             //findTopRateMovie:findTopRateMovie,
             //findMovieNowPlaying:findMovieNowPlaying,
             //findMovieUpcoming:findMovieUpcoming,
@@ -51,20 +51,10 @@
             return $http.get("/api/project/movie");
         }
 
-        //function searchMoviesByTitle(title,page){
-        //    var deferred = $q.defer();
-        //    var service = '/search/movie';
-        //    var url = base + service + '?api_key=' + apiKey+'&query='+title+'&page='+page;
-        //    $http({method: 'GET', url: url}).
-        //    success(function (response) {
-        //        deferred.resolve(response);
-        //    }).
-        //    error(function (response) {
-        //        deferred.resolve(response);
-        //    });
-        //    return deferred.promise;
-        //}
-        //
+        function searchMoviesByTitle(keyword){
+            return $http.get("/api/project/search/"+keyword);
+        }
+
         //function findTopRateMovie(page){
         //    var deferred = $q.defer();
         //    var service = '/movie/top_rated';

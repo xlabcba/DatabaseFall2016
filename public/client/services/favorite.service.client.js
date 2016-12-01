@@ -15,7 +15,8 @@
 
         function isFavorite(userId, movieId){
             //return $http.get("/api/project/user/"+userId+"/movie/"+movieId);
-            return $http.get("/api/project/favorite?userId="+userId+"&movieId="+movieId);
+            var result =  $http.get("/api/project/favorite?userId="+userId+"&movieId="+movieId);
+            return (result[0].total != 0);
         }
 
         function like(userId, movieId) {
