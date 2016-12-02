@@ -17,13 +17,6 @@ module.exports = function() {
     return api;
 
     function findCommentsByMovieId(movieId) {
-        //var ret_comments = [];
-        //for(var c in mock) {
-        //    if(mock[c].movieId == movieId) {
-        //        ret_comments.push(mock[c]);
-        //    }
-        //}
-        //return ret_comments;
 
         var deferred = q.defer();
 
@@ -39,13 +32,6 @@ module.exports = function() {
     }
 
     function createComment(comment) {
-        //var ret_comments = [];
-        //for(var c in mock) {
-        //    if(mock[c].movieId == movieId) {
-        //        ret_comments.push(mock[c]);
-        //    }
-        //}
-        //return ret_comments;
 
         var deferred = q.defer();
 
@@ -61,13 +47,6 @@ module.exports = function() {
     }
 
     function updateComment(userId, movieId, comment) {
-        //var ret_comments = [];
-        //for(var c in mock) {
-        //    if(mock[c].movieId == movieId) {
-        //        ret_comments.push(mock[c]);
-        //    }
-        //}
-        //return ret_comments;
 
         var deferred = q.defer();
         console.log("IN DB");
@@ -88,13 +67,6 @@ module.exports = function() {
     }
 
     function deleteComment(userId, movieId) {
-        //var ret_comments = [];
-        //for(var c in mock) {
-        //    if(mock[c].movieId == movieId) {
-        //        ret_comments.push(mock[c]);
-        //    }
-        //}
-        //return ret_comments;
 
         var deferred = q.defer();
 

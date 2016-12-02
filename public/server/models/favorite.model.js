@@ -32,14 +32,7 @@ module.exports = function() {
     }
 
     function like(userId, movieId) {
-        //var newLike = {"userId": userId, "movieId": movieId};
-        //for(var l in mock) {
-        //    if(mock[l].userId == userId && mock[l].movieId == movieId) {
-        //        return null;
-        //    }
-        //}
-        //mock.push(newLike);
-        //return true;
+
         var deferred = q.defer();
 
         db.query('INSERT INTO moviedb.Favorite SET savedBy = ?, saves = ?;', [userId, movieId], function(err, result) {
@@ -55,13 +48,7 @@ module.exports = function() {
     }
 
     function unlike(userId, movieId) {
-        //for(var l in mock) {
-        //    if(mock[l].userId == userId && mock[l].movieId == movieId) {
-        //        mock.splice(l,1);
-        //        return false;
-        //    }
-        //}
-        //return null;
+
         var deferred = q.defer();
 
         db.query('DELETE FROM moviedb.Favorite WHERE savedBy = ? AND saves = ?;', [userId, movieId], function(err, result) {

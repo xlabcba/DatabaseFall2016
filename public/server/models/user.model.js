@@ -22,7 +22,6 @@ module.exports = function(db) {
     function createUser(user) {
 
         var deferred = q.defer();
-        //console.log("ENTER DB SUCCESSFULLY!");
 
         db.query('INSERT INTO moviedb.User SET username = ?, password = ?, email = ?;', [user.username, user.password, user.email], function(err, result) {
             if (err) {
