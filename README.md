@@ -1,5 +1,16 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+# Movie Web Application with MYSQL Database
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+## Introduction
 
-test push
+This project implemented of a movie searching and commenting web application by using Angularjs, Express, Nodejs and MySQL. 
+
+In this web application:
+1. Visitors can search movie by keyword, view movies, and view comments left by registered users. 
+2. Registered users can post/update/delete their own comment on movies, and save/delete movie as/from their favorite movie list. 
+3. Admin can view list of all registered users, and delete any users.
+
+## Implementation
+
+Implementation of this project can be found on:
+
+[Movie Web Application](http://moviedb-xieli.rhcloud.com)
