@@ -8,7 +8,6 @@
         var vm = this;
 
         function init() {
-            //vm.uploadPhoto = '';
             var deferred = $q.defer();
             vm.currUser = UserService.getCurrentUser();
             console.log($rootScope.curUser);

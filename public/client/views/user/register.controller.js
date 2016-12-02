@@ -56,13 +56,6 @@
                                 }
                             });
                     }
-
-                    //var currentUser = response.data;
-                    //console.log(currentUser);
-                    //if (currentUser != null) {
-                    //    UserService.setCurrentUser(currentUser);
-                    //    $location.url("/profile");
-                    //}
                 });
         }
     }

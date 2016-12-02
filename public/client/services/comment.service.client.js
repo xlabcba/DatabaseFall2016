@@ -10,7 +10,6 @@
             createComment:createComment,
             updateComment:updateComment,
             deleteComment:deleteComment
-            //deleteSubComment:deleteSubComment
 
         };
 
@@ -35,10 +34,6 @@
             console.log(movieId);
             return $http.delete("/api/project/comment/user/"+userId+"/movie/"+movieId);
         }
-
-        //function deleteSubComment(type,tviso_id,comment_id,subcomment_id){
-        //    return $http.delete("/api/project/comment/"+type+"/"+tviso_id+"/comment/"+comment_id+"/subcomment/"+subcomment_id);
-        //}
     }
 })();
 

@@ -5,23 +5,13 @@ module.exports = function(app, favoriteModel) {
     app.put("/api/project/user/:userId/movie/:movieId", unlike);
 
     function isFavorite(req, res) {
-        //var userId = req.params.userId;
-        //var movieId = req.params.movieId;
-        //var result = favoriteModel.isFavorite(userId, movieId);
-        //res.json(result);
-
         var userId = req.query.userId;
         var movieId = req.query.movieId;
-
-        //console.log(userId);
-        //console.log(movieId);
 
         favoriteModel
             .isFavorite(userId, movieId)
             .then(
                 function ( total ) {
-                    //console.log("IS FAVORITE");
-                    //console.log(total);
                     res.json(total);
                 },
                 function ( err ) {
@@ -30,18 +20,11 @@ module.exports = function(app, favoriteModel) {
     }
 
     function like(req, res) {
-        //var userId = req.params.userId;
-        //var movieId = req.params.movieId;
-        //var result = favoriteModel.like(userId, movieId);
-        //res.json(result);
-
         var userId = req.params.userId;
         var movieId = req.params.movieId;
         favoriteModel
             .like(userId, movieId)
             .then(function ( result ) {
-                    //console.log("LIKE");
-                    //console.log(result);
                     res.send(200);
                 },
                 function ( err ) {
@@ -50,10 +33,6 @@ module.exports = function(app, favoriteModel) {
     }
 
     function unlike(req, res) {
-        //var userId = req.params.userId;
-        //var movieId = req.params.movieId;
-        //var result = favoriteModel.unlike(userId, movieId);
-        //res.json(result);
         var userId = req.params.userId;
         var movieId = req.params.movieId;
 
@@ -64,8 +43,6 @@ module.exports = function(app, favoriteModel) {
         favoriteModel
             .unlike(userId, movieId)
             .then(function ( result ) {
-                    //console.log("UNLIKED!!!");
-                    //console.log(result);
                     res.send(200);
                 },
                 function ( err ) {

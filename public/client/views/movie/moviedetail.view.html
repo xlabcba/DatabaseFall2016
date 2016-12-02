@@ -34,7 +34,7 @@
                         </li>
                         <li><strong>Rating: </strong> {{model.movie.rating}} Class</li>
                         <li><strong>Length: </strong> {{model.movie.runtime}} min</li>
-                        <li><strong>Premiere: </strong> {{model.movie.date}}</li>
+                        <li><strong>Premiere: </strong> {{model.movie.date | date: "yyyy-MM-dd"}}</li>
                         <li><strong>Genres: </strong>{{model.movie.genres}}</li>
                     </ul>
 

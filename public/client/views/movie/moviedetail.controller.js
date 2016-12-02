@@ -16,8 +16,7 @@
             vm.isCommented = false;
             vm.currComment = null;
             vm.commenttext = "";
-            //vm.subcommenttext ='';
-            //vm.currentvideo = 0;
+
             vm.getUsersOfComments = getUsersOfComments;
             vm.getMovieById = getMovieById;
             vm.veriPosterImg = veriPosterImg;
@@ -34,7 +33,6 @@
             vm.unlike= unlike;
             vm.roundRate = roundRate;
             vm.loadLike = loadLike;
-            //vm.arrayToString = arrayToString;
 
             vm.getMovieById(vm.movieId);
             vm.loadLike();
@@ -170,27 +168,6 @@
             });
         }
 
-        //function addSubComment(index){
-        //    var user = UserService.getCurrentUser();
-        //    var subcomment =
-        //    {
-        //        "text":vm.subcommenttext,
-        //        "user_id" :user.id,
-        //        "username":user.username,
-        //        "date":(new Date).toString()
-        //    };
-        //    CommentService.createSubComment('movie',vm.movie.id,vm.commentSet.comments[index]._id, subcomment).then(function(resp){
-        //        if (resp === undefined) {
-        //            alert("Create Sub Comment Fail");
-        //        } else if (resp.length === 0) {
-        //            alert("Create Sub Comment Fail");
-        //        } else {
-        //            vm.subcommenttext = '';
-        //            vm.commentSet.comments[index].subcomments = resp.data;
-        //        }
-        //    });
-        //}
-
         function deleteComment(userId){
             CommentService.deleteComment(userId, vm.movieId)
                 .then(function(resp){
@@ -232,21 +209,6 @@
                 });
         }
 
-
-
-        //function deleteSubComment(comment_id, subcomment_id){
-        //    CommentService.deleteSubComment('movie',vm.movie.id,comment_id,subcomment_id).then(function(resp) {
-        //        if (resp === undefined) {
-        //            alert("Create Sub Comment Fail");
-        //        } else if (resp.length === 0) {
-        //            alert("Create Sub Comment Fail");
-        //        } else {
-        //            vm.subcommenttext = '';
-        //            vm.commentSet.comments=resp.data;
-        //        }
-        //    });
-        //}
-
         function authPower(user_id){
             var user = UserService.getCurrentUser();
             return user != undefined && user!= null && user.id == user_id;
@@ -275,19 +237,6 @@
                 return imageurl;
             }
         }
-
-        //function arrayToString(arr){
-        //    //var str = "";
-        //    //for(var i in arr){
-        //    //    str = str+arr[i].name+" | ";
-        //    //}
-        //    //return str.substring(0,str.length-2);
-        //    if (arr == undefined || arr.length == 0) {
-        //        return "";
-        //    } else {
-        //        return arr.join(" | ");
-        //    }
-        //}
 
         function roundRate(rate){
             return (Math.round(parseFloat(rate)*10)).toString()+'%';

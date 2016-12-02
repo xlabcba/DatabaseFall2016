@@ -7,10 +7,6 @@ module.exports = function(app, commentModel) {
 
     function findCommentsByMovieId(req, res) {
         var movieId = req.params.movieId;
-        //console.log(movieId);
-        //var comments = commentModel.findCommentsByMovieId(movieId);
-        //res.json(comments);
-
         commentModel
             .findCommentsByMovieId(movieId)
             .then(
@@ -24,13 +20,9 @@ module.exports = function(app, commentModel) {
 
     function createComment(req, res) {
         var comment = req.body;
-        //console.log("IN SERVER");
-        //console.log(comment);
         commentModel
             .createComment(comment)
             .then(function ( result ) {
-                    //console.log("COMMENTED!!!");
-                    //console.log(insertId);
                     res.send(200);
                 },
                 function ( err ) {
@@ -71,7 +63,5 @@ module.exports = function(app, commentModel) {
                 function ( err ) {
                     res.status(400).send(err);
                 });
-
     }
-
 };
