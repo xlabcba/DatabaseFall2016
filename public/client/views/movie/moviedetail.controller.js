@@ -47,6 +47,7 @@
                     if (resp === undefined) {
                         alert("Item you are trying to search could not be found");
                     } else {
+                        console.log(resp.data);
                         vm.movie = resp.data;
                     }
             });
@@ -58,6 +59,7 @@
                     if (resp === undefined) {
                         alert("Item you are trying to search could not be found");
                     } else {
+                        console.log(resp.data);
                         getUsersOfComments(resp.data);
                     }
             });
@@ -69,7 +71,6 @@
             } else {
                 var curUser = null;
             }
-            //console.log(comments);
             for (var c in comments) {
                 (function() {
                     var i = c;
@@ -86,11 +87,11 @@
                     }
                 })();
             }
+            console.log(comments);
             vm.commentSet = comments;
         }
 
         function loadLike(){
-            console.log("HERE IT IS!!!");
             if (!UserService.islogin()) {
                 //console.log("NOT LOGIN!!!");
                 return;
