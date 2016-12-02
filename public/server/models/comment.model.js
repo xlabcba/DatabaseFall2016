@@ -49,10 +49,6 @@ module.exports = function() {
     function updateComment(userId, movieId, comment) {
 
         var deferred = q.defer();
-        console.log("IN DB");
-        console.log(userId);
-        console.log(movieId);
-        console.log(comment);
 
         db.query('UPDATE moviedb.Comment SET text = ?, updateDate = ? WHERE commentedBy = ? and comments = ?;', [comment.text, comment.updateDate, userId, movieId], function(err, result) {
             if (err) {

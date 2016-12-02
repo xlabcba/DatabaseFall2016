@@ -2,7 +2,7 @@
     <div class="page">
         <div ng-show="model.showSearchResult" class="breadcrumbs">
             <a href="#">Home</a>
-            <span>result for "{{model.showSearchResult}}"</span>
+            <span>result(s) for "{{model.showSearchResult}}"</span>
         </div>
         <div ng-show="!model.showSearchResult" class="breadcrumbs">
             <span>Home</span>
@@ -21,6 +21,7 @@
                     </div>
                 </div>
             </div>
+            <h3 ng-show="model.showSearchResult">({{model.movielist.length}}) matches for '{{model.showSearchResult}}'</h3>
             <div class="movie-list" ng-repeat="movie in model.movielist">
                 <div class="clearfix" ng-if="$index<model.movielist.length&&$index % 4 == 0"></div>
                 <div class="col-md-3">

@@ -49,14 +49,10 @@ module.exports = function(db) {
     function searchMovieByTitle(keyword) {
         var deferred = q.defer();
 
-        console.log("IN DB");
-        console.log(keyword);
         db.query("SELECT * FROM moviedb.Movie as m WHERE m.title LIKE ?;", ['%'+keyword+'%'], function(err, rows) {
             if (err) {
                 deferred.reject(err);
             } else {
-                console.log("SUCCESS SEARCH!!!");
-                console.log(rows);
                 deferred.resolve(rows);
             }
         });
