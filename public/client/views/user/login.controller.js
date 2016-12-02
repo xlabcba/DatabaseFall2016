@@ -27,9 +27,11 @@
                 console.log("GOING TO LOGIN AS ADMIN");
                 UserService.loginAsAdmin(vm.user)
                     .then(function (response) {
-                        if (response.data == null) {
-                            alert("login fail");
+                        if (response.data == "" || response.data == null || response.data == undefined) {
+                            alert("Invalid Admin Username or/and Password");
+                            return;
                         } else {
+                            console.log(response);
                             vm.user = response.data;
                             UserService.setCurrentUser(response.data);
                             UserService.setAdmin();
@@ -40,9 +42,11 @@
                 console.log("GOING TO LOGIN AS NORMAL USER");
                 UserService.login(vm.user)
                     .then(function (response) {
-                        if (response.data == null) {
-                            alert("login fail");
+                        if (response.data == "" || response.data == null || response.data == undefined) {
+                            alert("Invalid Username or/and Password");
+                            return;
                         } else {
+                            console.log(response);
                             vm.user = response.data;
                             UserService.setCurrentUser(response.data);
                             $location.path('/profile');
